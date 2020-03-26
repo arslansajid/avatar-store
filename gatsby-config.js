@@ -9,7 +9,7 @@ module.exports = {
     description: 'An e-commerce site',
     siteUrl: 'https://avatar-store.herokuapp.com/',
   },
-  pathPrefix: '/gatsby-starter-ecommerce',
+  pathPrefix: '/',
   plugins: [
     {
       resolve: '@moltin/gatsby-source-moltin',
