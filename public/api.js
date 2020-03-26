@@ -1,0 +1,42 @@
+export const watchItems = [
+    {
+      id: "19f14ec4-959f-495d-9fa8-bca93bfd15f0",
+      name: "Family Portrait 1",
+      desc: "Front padded jacket",
+      price: "$100",
+      image: "https://i.etsystatic.com/18183242/d/il/231110/2234010153/il_340x270.2234010153_tbxz.jpg?version=0",
+      hoverImage: "https://cdn-images.farfetch-contents.com/14/23/52/42/14235242_22532928_480.jpg",
+    },
+    {
+        id: "873c77e9-b087-41a8-9dae-4522a7eee960",
+      name: "Family Portrait 2",
+      desc: "Front padded jacket",
+      price: "$200",
+      image: "https://i.etsystatic.com/18183242/d/il/231110/2234010153/il_340x270.2234010153_tbxz.jpg?version=0",
+      hoverImage: "https://cdn-images.farfetch-contents.com/14/41/94/38/14419438_21374032_480.jpg",
+    },
+    {
+        id: "77a51a50-3687-4726-a8a5-f3cc5d1c0078",
+      name: "Family Portrait 3",
+      desc: "Front padded jacket",
+      price: "$300",
+      image: "https://i.etsystatic.com/18183242/d/il/231110/2234010153/il_340x270.2234010153_tbxz.jpg?version=0",
+      hoverImage: "https://cdn-images.farfetch-contents.com/14/14/61/09/14146109_22532760_480.jpg",
+    },
+    {
+        id: "1981f542-8a23-460c-83b5-008130ced9a6",
+      name: "Family Portrait 4",
+      desc: "Front padded jacket",
+      price: "$400",
+      image: "https://i.etsystatic.com/18183242/d/il/231110/2234010153/il_340x270.2234010153_tbxz.jpg?version=0",
+      hoverImage: "https://cdn-images.farfetch-contents.com/14/01/17/63/14011763_18218433_480.jpg",
+    },
+    {
+        id: "7123b2bb-d32d-480f-a30c-77a972954f1d",
+      name: "Family Portrait 5",
+      desc: "Front padded jacket",
+      price: "$500",
+      image: "https://i.etsystatic.com/18183242/d/il/231110/2234010153/il_340x270.2234010153_tbxz.jpg?version=0",
+      hoverImage: "https://cdn-images.farfetch-contents.com/14/14/61/09/14146109_22532760_480.jpg",
+    },
+]
