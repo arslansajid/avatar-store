@@ -3,7 +3,7 @@
 
 import React, {useState, useContext} from 'react'
 import {navigate} from 'gatsby'
-import {Header, Form, Input, Button, Segment, Message} from 'semantic-ui-react'
+import {Header, Form, Input, Button, Segment, Message, Container} from 'semantic-ui-react'
 import SEO from '../components/SEO'
 import {login} from '../../lib/moltin'
 import AuthContext from '../components/Context/AuthContext'
@@ -51,6 +51,7 @@ const LoginPage = ({location}) => {
   return (
     <Layout location={location}>
       <SEO title="Login" />
+      <Container text>
       <Header as="h1">Log in to your account</Header>
       <Form
         onSubmit={handleSubmit}
@@ -93,6 +94,7 @@ const LoginPage = ({location}) => {
           </Button>
         </Segment>
       </Form>
+      </Container>
     </Layout>
   )
 }

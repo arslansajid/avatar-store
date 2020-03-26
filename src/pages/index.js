@@ -1,13 +1,19 @@
 import React from 'react'
-import {graphql, useStaticQuery} from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 import get from 'lodash/get'
-import {Image, Header} from 'semantic-ui-react'
+import { Image, Header, Button } from 'semantic-ui-react'
 import ProductList from '../components/ProductList'
+import FilterSidebar from '../components/FilterSidebar/DesktopFilterSidebar'
+import MobileFilterTopbar from '../components/FilterSidebar/MobileFilterTopbar'
 import SEO from '../components/SEO'
 import logo from '../images/ill-short-dark.svg'
+import heart from '../images/heart.png'
 import Layout from '../components/Layout'
+import '../styles/filters.css'
+import '../styles/global.css'
+import '../styles/slider.css'
 
-const StoreIndex = ({location}) => {
+const StoreIndex = ({ location }) => {
   const data = useStaticQuery(graphql`
     query IndexQuery {
       site {
@@ -62,14 +68,35 @@ const StoreIndex = ({location}) => {
           style={{
             width: '60%',
             margin: '0 auto',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: '10vw'
           }}
-        >
-          <Image src={logo} alt="logo" />
+        >I
+          <Image style={{width: '15vw', height: '12vw'}} src={heart} alt="logo" />
+          AVATAR
+          {/* <p>I LOVE AVATAR</p> */}
         </Header.Content>
       </Header>
-      <ProductList products={filterProductsWithoutImages} />
+      <div className="ui grid">
+        <MobileFilterTopbar />
+        <div className="four wide tablet four wide computer only column">
+          <FilterSidebar />
+        </div>
+        <div className="twelve wide tablet twelve wide computer sixteen wide mobile column">
+          <ProductList products={filterProductsWithoutImages} />
+        </div>
+      </div>
     </Layout>
   )
+}
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+  }
 }
 
 export default StoreIndex

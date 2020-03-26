@@ -1,0 +1,31 @@
+:focus,
+:active {
+  outline: none !important;
+  box-shadow: unset !important;
+}
+
+input[type='radio']:after {
+    width: 20px;
+    height: 20px;
+    top: -2px;
+    left: -2px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 1px solid #d1d3d1;
+  }
+  
+  input[type='radio']:checked:after {
+    width: 20px;
+    height: 20px;
+    top: -2px;
+    left: -2px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 7px solid #222222;
+  }

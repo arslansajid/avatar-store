@@ -13,7 +13,7 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
 
   return (
     <Menu size="huge" borderless pointing>
-      <Container text>
+      <Container >
         <Menu.Item
           active={activeItem === withPrefix('/')}
           as={Link}
@@ -21,7 +21,7 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
           header
         >
           <Logo />
-          Starter Store
+          Avatar Store
         </Menu.Item>
         {token ? (
           <Menu.Menu position="right">
@@ -44,6 +44,20 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
           </Menu.Menu>
         ) : (
           <Menu.Menu position="right">
+            <Menu.Item
+              as={Link}
+              to="/about-us/"
+              active={activeItem === withPrefix('/aboutus/')}
+            >
+              About Us
+            </Menu.Item>
+            <Menu.Item
+              as={Link}
+              to="/contact-us/"
+              active={activeItem === withPrefix('/contactus/')}
+            >
+              Contact Us
+            </Menu.Item>
             <Menu.Item
               as={Link}
               to="/register/"

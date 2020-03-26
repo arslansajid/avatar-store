@@ -3,7 +3,7 @@
 
 import React, {useState, useContext} from 'react'
 import {navigate} from 'gatsby'
-import {Header, Form, Input, Button, Segment, Message} from 'semantic-ui-react'
+import {Header, Form, Input, Button, Segment, Message, Container} from 'semantic-ui-react'
 import SEO from '../components/SEO'
 import AuthContext from '../components/Context/AuthContext'
 import {register} from '../../lib/moltin'
@@ -55,6 +55,7 @@ const Register = ({location}) => {
   return (
     <Layout location={location}>
       <SEO title="Register" />
+      <Container text>
       <Header as="h1">Create an account</Header>
       <Form onSubmit={handleSubmit} loading={loading} error={!!errors}>
         {apiError.length !== 0 ? handleErrors(errors) : null}
@@ -101,6 +102,7 @@ const Register = ({location}) => {
           </Button>
         </Segment>
       </Form>
+      </Container>
     </Layout>
   )
 }

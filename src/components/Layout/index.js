@@ -14,9 +14,15 @@ const Layout = ({location, children}) => (
     >
       <Header location={location} />
     </Headroom>
-    <Container text>{children}</Container>
+    <Container style={styles.container}>{children}</Container>
     <Footer />
   </>
 )
 
-export default Layout
+const styles = {
+  container: {
+    // paddingLeft: '2vw',
+    // paddingRight: '2vw',
+  }
+}
+export default Layout;
