@@ -7,7 +7,7 @@ module.exports = {
     title: 'Avatar Store',
     author: 'Arslan Sajid',
     description: 'An e-commerce site',
-    siteUrl: 'https://arslansajid.github.io/avatar-store/',
+    siteUrl: 'https://avatar-store.herokuapp.com/',
   },
   pathPrefix: '/gatsby-starter-ecommerce',
   plugins: [
