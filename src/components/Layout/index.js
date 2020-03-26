@@ -21,8 +21,6 @@ const Layout = ({location, children}) => (
 
 const styles = {
   container: {
-    // paddingLeft: '2vw',
-    // paddingRight: '2vw',
   }
 }
 export default Layout;
