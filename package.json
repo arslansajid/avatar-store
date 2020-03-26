@@ -81,13 +81,13 @@
     "url": "git+https://github.com/parmsang/gatsby-starter-ecommerce.git"
   },
   "scripts": {
-    "heroku-postbuild": "npm run build",
+    "heroku-postbuild": "gatsby build",
     "start": "gatsby serve",
     "dev": "gatsby develop",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "develop": "rimraf .cache && gatsby develop",
-    "build": "gatsby build",
+    "build": "rimraf .cache && gatsby build",
     "deploy": "rimraf .cache && gatsby build --prefix-paths && gh-pages -d public",
     "cy:open": "cypress open",
     "test": "is-ci \"test:coverage\" \"test:watch\"",
