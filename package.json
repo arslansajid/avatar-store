@@ -81,7 +81,6 @@
     "url": "git+https://github.com/parmsang/gatsby-starter-ecommerce.git"
   },
   "scripts": {
-    "heroku-postbuild": "gatsby build",
     "start": "gatsby serve",
     "dev": "gatsby develop",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
