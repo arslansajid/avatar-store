@@ -1,102 +1,342 @@
 import React from 'react'
-import { graphql, useStaticQuery } from 'gatsby'
-import get from 'lodash/get'
-import { Image, Header, Button } from 'semantic-ui-react'
-import ProductList from '../components/ProductList'
-import FilterSidebar from '../components/FilterSidebar/DesktopFilterSidebar'
-import MobileFilterTopbar from '../components/FilterSidebar/MobileFilterTopbar'
 import SEO from '../components/SEO'
-import logo from '../images/ill-short-dark.svg'
-import heart from '../images/heart.png'
 import Layout from '../components/Layout'
-import '../styles/filters.css'
-import '../styles/global.css'
-import '../styles/slider.css'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import {
+  Card,
+  CardBody,
+  CardFooter,
+  CardTitle,
+  Form,
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Container,
+  Row,
+  Col
+} from "reactstrap";
+import {Link} from 'gatsby'
+import { Icon, Button } from 'semantic-ui-react'
+import Parallax from '../components/parallax';
 
-const StoreIndex = ({ location }) => {
-  const data = useStaticQuery(graphql`
-    query IndexQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-      allMoltinProduct {
-        edges {
-          node {
-            id
-            name
-            description
-            mainImageHref
-            meta {
-              display_price {
-                with_tax {
-                  amount
-                  currency
-                  formatted
-                }
-              }
-            }
-            mainImage {
-              childImageSharp {
-                sizes(maxWidth: 600) {
-                  ...GatsbyImageSharpSizes
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
+import '../styles/landing.css';
+import '../styles/filters.css';
+import '../styles/global.css';
+import '../styles/slider.css';
+import '../styles/productPage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-image-gallery/styles/css/image-gallery.css";
 
-  const siteTitle = get(data, 'site.siteMetadata.title')
-  const products = get(data, 'allMoltinProduct.edges')
-  const filterProductsWithoutImages = products.filter(v => v.node.mainImageHref)
-  return (
-    <Layout location={location}>
-      <SEO title={siteTitle} />
-      <Header
-        as="h3"
-        icon
-        textAlign="center"
-        style={{
-          marginBottom: '2em',
-        }}
-      >
-        <Header.Content
-          style={{
-            width: '60%',
-            margin: '0 auto',
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: '10vw'
-          }}
-        >I
-          <Image style={{width: '15vw', height: '12vw'}} src={heart} alt="logo" />
-          AVATAR
-          {/* <p>I LOVE AVATAR</p> */}
-        </Header.Content>
-      </Header>
-      <div className="ui grid">
-        <MobileFilterTopbar />
-        <div className="four wide tablet four wide computer only column">
-          <FilterSidebar />
+const Home = ({location}) => (
+  <>
+  <Header location={location} />
+    <SEO title="Home" />
+    <Parallax />
+    <div className="main">
+        <div className="section text-center">
+          <Container>
+            <Row>
+              <Col className="ml-auto mr-auto" md="8">
+                <h2 className="title">How it works!</h2>
+                <h5 className="description">
+                  This is the paragraph where you can write more details about
+                  your product. Keep you user engaged by providing meaningful
+                  information. Remember that by this time, the user is curious,
+                  otherwise he wouldn't scroll to get here. Add a button if you
+                  want the user to see more.
+                </h5>
+                <br />
+                <Button
+                  className="ui red button"
+                  onClick={e => e.preventDefault()}
+                >
+                  See Details
+                </Button>
+              </Col>
+            </Row>
+            <br />
+            <br />
+            <br />
+            <br />
+            <Row>
+              <Col md="3">
+                <div className="info">
+                  <div className="description">
+                    <h4 className="info-title">Beautiful Gallery</h4>
+                    <p className="description">
+                      Spend your time generating new ideas. You don't have to
+                      think of implementing.
+                    </p>
+                    <Button className="ui red button" color="info" >
+                      See more
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="description">
+                    <h4 className="info-title">New Ideas</h4>
+                    <p>
+                      Larger, yet dramatically thinner. More powerful, but
+                      remarkably power efficient.
+                    </p>
+                    <Button className="ui red button" color="info" >
+                      See more
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="description">
+                    <h4 className="info-title">Statistics</h4>
+                    <p>
+                      Choose from a veriety of many colors resembling sugar
+                      paper pastels.
+                    </p>
+                    <Button className="ui red button" color="info" >
+                      See more
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+              <Col md="3">
+                <div className="info">
+                  <div className="icon icon-info">
+                    <i className="nc-icon nc-sun-fog-29" />
+                  </div>
+                  <div className="description">
+                    <h4 className="info-title">Delightful design</h4>
+                    <p>
+                      Find unique and handmade delightful designs related items
+                      directly from our sellers.
+                    </p>
+                    <Button className="ui red button" color="info" >
+                      See more
+                    </Button>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
         </div>
-        <div className="twelve wide tablet twelve wide computer sixteen wide mobile column">
-          <ProductList products={filterProductsWithoutImages} />
+        <div className="section section-dark text-center">
+          <Container>
+            <h2 className="title">Let's talk about us</h2>
+            <Row>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a  onClick={e => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src={require("../images/heart.png")}
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a  onClick={e => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Henry Ford</CardTitle>
+                        <h6 className="card-category">Product Manager</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      Teamwork is so important that it is virtually impossible
+                      for you to reach the heights of your capabilities or make
+                      the money that you want without becoming very good at it.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"facebook"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"twitter"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"google"} />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a  onClick={e => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src={require("../images/heart.png")}
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a  onClick={e => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Sophie West</CardTitle>
+                        <h6 className="card-category">Designer</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      A group becomes a team when each member is sure enough of
+                      himself and his contribution to praise the skill of the
+                      others. No one can whistle a symphony. It takes an
+                      orchestra to play it.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"facebook"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"twitter"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      {/* <i className="fa fa-linkedin" /> */}
+                      <Icon name={"google"} />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+              <Col md="4">
+                <Card className="card-profile card-plain">
+                  <div className="card-avatar">
+                    <a  onClick={e => e.preventDefault()}>
+                      <img
+                        alt="..."
+                        src={require("../images/heart.png")}
+                      />
+                    </a>
+                  </div>
+                  <CardBody>
+                    <a  onClick={e => e.preventDefault()}>
+                      <div className="author">
+                        <CardTitle tag="h4">Robert Orben</CardTitle>
+                        <h6 className="card-category">Developer</h6>
+                      </div>
+                    </a>
+                    <p className="card-description text-center">
+                      The strength of the team is each individual member. The
+                      strength of each member is the team. If you can laugh
+                      together, you can work together, silence isn’t golden,
+                      it’s deadly.
+                    </p>
+                  </CardBody>
+                  <CardFooter className="text-center">
+                    <Button
+                      className="btn-just-icon btn-neutral"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"facebook"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"twitter"} />
+                    </Button>
+                    <Button
+                      className="btn-just-icon btn-neutral ml-1"
+                      color="link"
+                      
+                      onClick={e => e.preventDefault()}
+                    >
+                      <Icon name={"google"} />
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+        <div className="section landing-section">
+          <Container>
+            <Row>
+              <Col className="ml-auto mr-auto" md="8">
+                <h2 className="text-center">Keep in touch?</h2>
+                <Form className="contact-form">
+                  <Row>
+                    <Col md="6">
+                      <label>Name</label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <Icon name={"user"} />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input placeholder="Name" type="text" />
+                      </InputGroup>
+                    </Col>
+                    <Col md="6">
+                      <label>Email</label>
+                      <InputGroup>
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <Icon name={"mail"} />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input placeholder="Email" type="text" />
+                      </InputGroup>
+                    </Col>
+                  </Row>
+                  <label>Message</label>
+                  <Input
+                    placeholder="Tell us your thoughts and feelings..."
+                    type="textarea"
+                    rows="4"
+                  />
+                  <Row>
+                    <Col className="ml-auto mr-auto" md="4">
+                      <Button className="ui red button mt-3">
+                        Send Message
+                      </Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </div>
-    </Layout>
-  )
-}
+      <Footer />
+  </>
+)
 
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-  }
-}
-
-export default StoreIndex
+export default Home

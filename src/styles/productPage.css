@@ -1,0 +1,13 @@
+.image-gallery-slide-wrapper {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.image-gallery-thumbnail-inner {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.image-gallery-thumbnail {
+    border-radius: 9px !important;
+}
