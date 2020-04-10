@@ -10,6 +10,14 @@ import logo from '../images/ill-short-dark.svg'
 import heart from '../images/heart.png'
 import Layout from '../components/Layout'
 
+import '../styles/landing.css';
+import '../styles/filters.css';
+import '../styles/global.css';
+import '../styles/slider.css';
+import '../styles/productPage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-image-gallery/styles/css/image-gallery.css";
+
 const StoreIndex = ({ location }) => {
   const data = useStaticQuery(graphql`
     query IndexQuery {

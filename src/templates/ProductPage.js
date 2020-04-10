@@ -6,6 +6,12 @@ import get from 'lodash/get'
 import ProductSummary from '../components/ProductSummary'
 import ProductAttributes from '../components/ProductAttributes'
 import Layout from '../components/Layout'
+import '../styles/filters.css';
+import '../styles/global.css';
+import '../styles/slider.css';
+import '../styles/productPage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 class ProductPageTemplate extends React.PureComponent {
   render() {
