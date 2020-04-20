@@ -1,0 +1,24 @@
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.gallery-container {
+  position: relative;
+}
+
+.asset-image {
+  width: 50px;
+  height: 50px;
+  /* width: 100%;
+  height: 100%;  */
+  object-fit: cover;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.asset-container {
+  width: 50px;
+  height: 50px;
+}
