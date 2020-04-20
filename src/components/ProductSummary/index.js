@@ -10,6 +10,7 @@ import {Item, Label, Image} from 'semantic-ui-react'
 import AddToCart from '../AddToCart'
 import isBrowser from "../../utils/isBrowser";
 import './index.css';
+import Touch from "./touch";
 
 const images = [
   {
@@ -156,6 +157,7 @@ const ProductSummary = ({id, name, meta, sku, mainImage}) => {
               assets.map((item, index) => {
                 return (
                   <div key={index} className='asset-container'>
+                    <Touch>
                     <img
                       className='asset-image'
                       id={index}
@@ -164,6 +166,7 @@ const ProductSummary = ({id, name, meta, sku, mainImage}) => {
                       draggable
                       src={require(`../../images/${item.image}`)}
                     />
+                    </Touch>
                   </div>
                 )
               })
