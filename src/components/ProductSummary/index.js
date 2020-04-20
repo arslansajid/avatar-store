@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Img from 'gatsby-image';
 import ImageGallery from 'react-image-gallery';
-import { Draggable, addClass, removeClass } from 'dragee';
-
-import ImageSource from "../../images/Image.jpg" 
 
 import {Item, Label, Image} from 'semantic-ui-react'
 
 import AddToCart from '../AddToCart'
 import isBrowser from "../../utils/isBrowser";
 import './index.css';
-import Touch from "./touch";
+
+import Loadable from "@loadable/component";
+const Touch = Loadable(() => import("./touch"));
 
 const images = [
   {
@@ -88,61 +87,46 @@ const ProductSummary = ({id, name, meta, sku, mainImage}) => {
     // console.log(e.target.id)
   }
 
-  const getRelativeCoordinates = (event, referenceElement) => {
-    referenceElement = document.getElementById(referenceElement);
+  // const getRelativeCoordinates = (event, referenceElement) => {
+  //   referenceElement = document.getElementById(referenceElement);
 
-    const position = {
-      x: event.pageX,
-      y: event.pageY
-    };
+  //   const position = {
+  //     x: event.pageX,
+  //     y: event.pageY
+  //   };
   
-    const offset = {
-      left: referenceElement.offsetLeft,
-      top: referenceElement.offsetTop
-    };
+  //   const offset = {
+  //     left: referenceElement.offsetLeft,
+  //     top: referenceElement.offsetTop
+  //   };
   
-    let reference = referenceElement.offsetParent;
+  //   let reference = referenceElement.offsetParent;
   
-    while(reference){
-      offset.left += reference.offsetLeft;
-      offset.top += reference.offsetTop;
-      reference = reference.offsetParent;
-    }
+  //   while(reference){
+  //     offset.left += reference.offsetLeft;
+  //     offset.top += reference.offsetTop;
+  //     reference = reference.offsetParent;
+  //   }
 
-    // setPositionArray([...positionArray, { 
-    //   x: position.x - offset.left,
-    //   y: position.y - offset.top,
-    // }])
+  //   positionArray[selected] = { 
+  //     x: position.x - offset.left,
+  //     y: position.y - offset.top,
+  //   };
 
-    positionArray[selected] = { 
-      x: position.x - offset.left,
-      y: position.y - offset.top,
-    };
+  //   setPositionArray([...positionArray])
 
-    setPositionArray([...positionArray])
+  //   console.log("############", positionArray)
 
-    console.log("############", positionArray)
-
-  }
-
-  const HandleDrag = (id) => {
-    let element = <p>HAHHAHAHAH</p>
-    const draggableElement =  new Draggable(element, {
-      on: {
-          'drag:start': () => addClass(element, 'is-dragging'),
-          'drag:move': () => console.log('drag:move'),
-          'drag:end': () => removeClass(element, 'is-dragging'),
-      }
-  })
-  console.log("draggableElement", draggableElement)
-  return element;
-  }
+  // }
 
   return (
     <div className="container-fluid p-0">
       <div className="row my-3">
         <div className="col-lg-8 p-0">
-          <div className="gallery-container" id="gallery-container" onDragOver={(e) => onDragOver(e)} onDrop={(e) => getRelativeCoordinates(e, "gallery-container")}>
+          <div className="gallery-container" id="gallery-container"
+            // onDragOver={(e) => onDragOver(e)}
+            // onDrop={(e) => getRelativeCoordinates(e, "gallery-container")}
+          >
             <ImageGallery
               items={images}
               thumbnailPosition={!!width && width < 768 ? 'bottom' : 'left'}

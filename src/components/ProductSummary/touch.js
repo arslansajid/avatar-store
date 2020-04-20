@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import isBrowser from "../../utils/isBrowser";
 
 class Draggable extends React.Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class Draggable extends React.Component {
 
     onStart(e) {
         const ref = ReactDOM.findDOMNode(this.handle);
-        const body = document.body;
+        const body = isBrowser() && document.body;
         const box = ref.getBoundingClientRect();
         this.setState({
             relX: e.pageX - (box.left + body.scrollLeft - body.clientLeft),
@@ -55,14 +56,14 @@ class Draggable extends React.Component {
     onMouseDown(e) {
         if (e.button !== 0) return;
         this.onStart(e);
-        document.addEventListener('mousemove', this.onMouseMove);
-        document.addEventListener('mouseup', this.onMouseUp);
+        isBrowser() && document.addEventListener('mousemove', this.onMouseMove);
+        isBrowser() && document.addEventListener('mouseup', this.onMouseUp);
         e.preventDefault();
     }
 
     onMouseUp(e) {
-        document.removeEventListener('mousemove', this.onMouseMove);
-        document.removeEventListener('mouseup', this.onMouseUp);
+        isBrowser() && document.removeEventListener('mousemove', this.onMouseMove);
+        isBrowser() && document.removeEventListener('mouseup', this.onMouseUp);
         this.props.onStop && this.props.onStop(this.state.x, this.state.y);
         e.preventDefault();
     }
@@ -74,8 +75,8 @@ class Draggable extends React.Component {
 
     onTouchStart(e) {
         this.onStart(e.touches[0]);
-        document.addEventListener('touchmove', this.onTouchMove, {passive: false});
-        document.addEventListener('touchend', this.onTouchEnd, {passive: false});
+        isBrowser() && document.addEventListener('touchmove', this.onTouchMove, {passive: false});
+        isBrowser() && document.addEventListener('touchend', this.onTouchEnd, {passive: false});
         e.preventDefault();
     }
 
@@ -85,8 +86,8 @@ class Draggable extends React.Component {
     }
 
     onTouchEnd(e) {
-        document.removeEventListener('touchmove', this.onTouchMove);
-        document.removeEventListener('touchend', this.onTouchEnd);
+        isBrowser() && document.removeEventListener('touchmove', this.onTouchMove);
+        isBrowser() && document.removeEventListener('touchend', this.onTouchEnd);
         this.props.onStop && this.props.onStop(this.state.x, this.state.y);
         e.preventDefault();
     }
