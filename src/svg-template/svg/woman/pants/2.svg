@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 600 600" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="women" transform="matrix(1.84053,0,0,0.946202,-562.36,73.698)">
+        <rect x="305.542" y="-77.888" width="325.992" height="634.114" style="fill:none;"/>
+        <g transform="matrix(0.543321,0,0,1.05686,415.697,-77.8882)">
+            <path d="M73.17,544.963C76.396,538.394 87.053,533.275 92.36,543.067C91.516,536.838 108.696,534.563 110.729,542.384L114.141,409.522C114.141,409.522 119.294,377.225 120.675,355.192C122.056,333.159 124.423,275.864 120.945,267.219C117.468,258.575 117.179,261.212 117.179,261.212C117.179,261.212 101.722,274.266 50.108,261.861C50.108,261.861 45.202,270.661 47.031,291.473C48.861,312.285 55.205,375.336 57.046,387.324C58.888,399.313 73.17,544.963 73.17,544.963Z" style="fill:rgb(51,51,51);"/>
+        </g>
+    </g>
+</svg>

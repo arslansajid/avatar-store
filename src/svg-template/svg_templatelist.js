@@ -1,7 +1,7 @@
 // Bodies
 const bodylist = [
   require("./svg/woman/body/1.svg"),
-  require("./svg/woman/body/2.svg"),
+  // require("./svg/woman/body/2.svg"),
   require("./svg/woman/body/3.svg"),
   require("./svg/woman/body/4.svg"),
   require("./svg/woman/body/5.svg")
