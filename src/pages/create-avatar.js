@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SEO from '../components/SEO'
-import Layout from '../components/Layout'
+import isBrowser from "../utils/isBrowser";
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { Link } from 'gatsby'
@@ -40,6 +40,7 @@ const friendOptions = [
 ];
 
 const CreateAvatar = ({ location }) => {
+  const [width, setWidth] = useState(0);
   const [showModal, setShowModal] = useState(true);
   const [showNameModal, setShowNameModal] = useState(false);
   const [gender, setGender] = useState(null);
@@ -53,7 +54,10 @@ const CreateAvatar = ({ location }) => {
   const [selectedShoes, setSelectedShoes] = useState(null);
 
   useEffect(() => {
-    console.log("selectedBody", selectedBody)
+    console.log("selectedBody", selectedBody);
+    if(isBrowser()) {
+      setWidth(window.innerWidth);
+      }
   }, [selectedBody])
 
   const resetSelection = () => {
@@ -79,7 +83,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {bodylist.map((item, index) => {
             return (
-              <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedBody ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -93,7 +97,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {hairlist.map((item, index) => {
             return (
-              <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -107,7 +111,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {topslist.map((item, index) => {
             return (
-              <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -121,7 +125,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {pantslist.map((item, index) => {
             return (
-              <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -135,7 +139,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {shoeslist.map((item, index) => {
             return (
-              <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -153,7 +157,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {bodylist_man.map((item, index) => {
             return (
-              <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedBody ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -167,7 +171,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {hairlist_man.map((item, index) => {
             return (
-              <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -181,7 +185,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {shirtslist_man.map((item, index) => {
             return (
-              <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -195,7 +199,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {pantslist_man.map((item, index) => {
             return (
-              <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -209,7 +213,7 @@ const CreateAvatar = ({ location }) => {
         <div className="row">
           {shoeslist_man.map((item, index) => {
             return (
-              <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 selection-card-container">
+              <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                 <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
                   <img src={item} />
                 </div>
@@ -236,18 +240,29 @@ const CreateAvatar = ({ location }) => {
                 onClick={() => setShowNameModal(true)}
                 className="name-link">
                 Change Name
-            </div>
+              </div>
+              <div className="avatar" style={width <= 768 ? {minHeight: '400px'} : {minHeight: '700px'} }>
               {
                 selectedHair && (
-                  <img src={selectedHair} alt="avatar-hair" />
+                  <img className="hair-image" src={selectedHair} alt="avatar-hair" />
                 )
               }
-              <img src={bodyImageSource} alt="avatar-body" />
+              {
+                selectedTop && (
+                  <img className="top-image" src={selectedTop} alt="avatar-top" />
+                )
+              }
+              <img className="body-image" src={bodyImageSource} alt="avatar-body" />
+              {
+                selectedBottom && (
+                  <img className="bottom-image" src={selectedBottom} alt="avatar-bottom" />
+                )
+              }
               {
                 selectedShoes && (
-                  <img src={selectedShoes} alt="avatar-shoes" />
-                )
-              }
+                  <img className="shoes-image" src={selectedShoes} alt="avatar-shoes" />
+              )}
+              </div>
             </div>
             <div className="col-6">
               <Dropdown
@@ -266,11 +281,11 @@ const CreateAvatar = ({ location }) => {
           <div className="row justify-content-center">
             <Button onClick={() => createAnotherAvatar()} color='red'>
               <Icon name='heart' />
-            Create Another Avatar
+              Create Another Avatar
           </Button>
             <Button color='green'>
               <Icon name='save' />
-            Save Avatar
+              Print Avatar
           </Button>
           </div>
 

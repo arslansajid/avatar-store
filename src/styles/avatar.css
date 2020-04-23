@@ -37,3 +37,33 @@
     border: 2px solid #db2828;
     cursor: pointer;
 }
+
+.body-image {
+    position: absolute;
+    left: 0;
+    z-index: 0;
+}
+
+.hair-image {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+}
+
+.top-image {
+    position: absolute;
+    left: 0;
+    z-index: 2;
+}
+
+.bottom-image {
+    position: absolute;
+    left: 0;
+    z-index: 3;
+}
+
+.shoes-image {
+    position: absolute;
+    left: 0;
+    z-index: 0;
+}
