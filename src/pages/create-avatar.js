@@ -241,7 +241,7 @@ const CreateAvatar = ({ location }) => {
                 className="name-link">
                 Change Name
               </div>
-              <div className="avatar" style={width <= 768 ? {minHeight: '400px'} : {minHeight: '700px'} }>
+              <div className="avatar" style={width <= 768 ? {minHeight: '215px'} : {minHeight: '700px'} }>
               {
                 selectedHair && (
                   <img className="hair-image" src={selectedHair} alt="avatar-hair" />
