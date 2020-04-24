@@ -73,6 +73,12 @@ const EditAvatar = (props) => {
         setSelectedTop(null);
         setSelectedBottom(null);
         setSelectedShoes(null);
+
+        updateAvatar(props.index, "body", null)
+        updateAvatar(props.index, "hair", null)
+        updateAvatar(props.index, "top", null)
+        updateAvatar(props.index, "bottom", null)
+        updateAvatar(props.index, "shoes", null)
       }
 
     const renderFemaleSelectionContainer = (editEntity) => {
@@ -265,10 +271,10 @@ const EditAvatar = (props) => {
               />
               {gender === "male" ? renderMaleSelectionContainer(editEntity) : renderFemaleSelectionContainer(editEntity)}
                 <div className="d-flex justify-content-center my-3">
-                    <Button size="medium" onClick={() => deleteAvatar(index)} color='red'>
+                    {/* <Button size="medium" onClick={() => deleteAvatar(index)} color='red'>
                         <Icon name='delete' />
                         Delete
-                    </Button>
+                    </Button> */}
                     <Button size="medium" onClick={() => resetSelection()} color='blue'>
                         <Icon name='undo' />
                         Reset
