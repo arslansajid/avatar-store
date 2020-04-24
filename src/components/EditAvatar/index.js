@@ -34,15 +34,15 @@ const friendOptions = [
   ];
 
 const EditAvatar = (props) => {
+    const {index, name, gender, setShowNameModal, deleteAvatar, updateAvatar, body, hair, top, bottom, shoes} = props;
+
     const [width, setWidth] = useState(0);
     const [editEntity, setEditEntity] = useState('Body');
-    const [selectedBody, setSelectedBody] = useState(null);
-    const [selectedHair, setSelectedHair] = useState(null);
-    const [selectedTop, setSelectedTop] = useState(null);
-    const [selectedBottom, setSelectedBottom] = useState(null);
-    const [selectedShoes, setSelectedShoes] = useState(null);
-
-    const {index, name, gender, setShowNameModal, deleteAvatar} = props;
+    const [selectedBody, setSelectedBody] = useState(!!body ? body : null);
+    const [selectedHair, setSelectedHair] = useState(!!hair ? hair : null);
+    const [selectedTop, setSelectedTop] = useState(!!top ? top : null);
+    const [selectedBottom, setSelectedBottom] = useState(!!bottom ? bottom : null);
+    const [selectedShoes, setSelectedShoes] = useState(!!shoes ? shoes : null);
 
     useEffect(() => {
         if(isBrowser()) {
@@ -81,7 +81,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {bodylist.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "body", item); setSelectedBody(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedBody ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -95,7 +95,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {hairlist.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "hair", item); setSelectedHair(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -109,7 +109,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {topslist.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "hair", item); setSelectedTop(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -123,7 +123,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {pantslist.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "bottom", item); setSelectedBottom(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -137,7 +137,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {shoeslist.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "shoes", item); setSelectedShoes(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -155,7 +155,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {bodylist_man.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedBody(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "body", item); setSelectedBody(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedBody ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -169,7 +169,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {hairlist_man.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedHair(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "hair", item); setSelectedHair(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -183,7 +183,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {shirtslist_man.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedTop(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "top", item); setSelectedTop(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -197,7 +197,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {pantslist_man.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedBottom(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "bottom", item); setSelectedBottom(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -211,7 +211,7 @@ const EditAvatar = (props) => {
             <div className="row">
               {shoeslist_man.map((item, index) => {
                 return (
-                  <div onClick={() => setSelectedShoes(item)} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                  <div onClick={() => {updateAvatar(props.index, "shoes", item); setSelectedShoes(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
                     <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
                       <img src={item} />
                     </div>
@@ -233,7 +233,7 @@ const EditAvatar = (props) => {
                 className="name-link">
                 Change Name
               </div>
-              <div className="avatar" style={width <= 768 ? {minHeight: '215px'} : {minHeight: '500px'} }>
+              <div className="avatar" style={width <= 768 ? {minHeight: '480px'} : {minHeight: '500px'} }>
               {
                 selectedHair && (
                   <img className="hair-image" src={selectedHair} alt="avatar-hair" />

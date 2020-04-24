@@ -15,7 +15,11 @@ const CreateAvatar = ({ location }) => {
   const [showNameModal, setShowNameModal] = useState(false);
   const [gender, setGender] = useState(null);
   const [name, setName] = useState(null);
-  const [avatarCount, setAvatarCount] = useState([])
+  const [avatarCount, setAvatarCount] = useState([]);
+
+  useEffect(() => {
+    console.log("avatarCount", avatarCount);
+  }, [avatarCount])
 
   const saveForm = () => {
     setShowModal(false);
@@ -36,6 +40,11 @@ const CreateAvatar = ({ location }) => {
     setAvatarCount([...duplicateArray])
   }
 
+  const updateAvatar = (index, entity, value) => {
+    avatarCount[index] = Object.assign(avatarCount[index], {[entity]: value})
+    setAvatarCount([...avatarCount]);
+  }
+
   return (
     <>
       <Header location={location} />
@@ -45,13 +54,19 @@ const CreateAvatar = ({ location }) => {
           <Row className="justify-content-center">
             {avatarCount.map((avatar, index) => {
               return (
-                <div key={index} className="col-4 text-center">
+                <div key={index} className="col-lg-4 col-md-4 col-sm-6 col-12 text-center">
                 <EditAvatar
                   index={index}
                   name={avatar.name}
                   gender={avatar.gender}
                   setShowNameModal={setShowNameModal}
                   deleteAvatar={deleteAvatar}
+                  updateAvatar={updateAvatar}
+                  body={avatar.body}
+                  hair={avatar.hair}
+                  top={avatar.top}
+                  bottom={avatar.bottom}
+                  shoes={avatar.shoes}
                 />
                 </div>
               )
