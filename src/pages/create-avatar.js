@@ -10,39 +10,264 @@ import Loadable from "@loadable/component";
 const EditAvatar = Loadable(() => import("../components/EditAvatar"));
 import '../styles/avatar.css';
 
+import { bodylist, hairlist, pantslist, topslist, shoeslist } from "../svg-template/svg_templatelist";
+import { bodylist_man, hairlist_man, pantslist_man, shoeslist_man, shirtslist_man } from "../svg-template/svg_url_templatelist_man";
+
+const svgOptions = [
+  {
+    key: '0',
+    text: 'Body',
+    value: 'Body',
+  },
+  {
+    key: '2',
+    text: 'Hair',
+    value: 'Hair',
+  },
+  {
+    key: '4',
+    text: 'Top',
+    value: 'Top',
+  },
+  {
+    key: '5',
+    text: 'Bottom',
+    value: 'Bottom',
+  },
+  {
+    key: '6',
+    text: 'Shoes',
+    value: 'Shoes',
+  },
+];
+
 const CreateAvatar = ({ location }) => {
   const [showModal, setShowModal] = useState(true);
   const [showNameModal, setShowNameModal] = useState(false);
   const [gender, setGender] = useState(null);
   const [name, setName] = useState(null);
-  const [avatarCount, setAvatarCount] = useState([]);
+  const [avatarData, setAvatarData] = useState([]);
+  const [selectedAvatarIndex, setSelectedAvatarIndex] = useState(0);
+
+  //avatar particulars
+  const [editEntity, setEditEntity] = useState('Body');
+  const [selectedBody, setSelectedBody] = useState(null);
+  const [selectedHair, setSelectedHair] = useState(null);
+  const [selectedTop, setSelectedTop] = useState(null);
+  const [selectedBottom, setSelectedBottom] = useState(null);
+  const [selectedShoes, setSelectedShoes] = useState(null);
 
   useEffect(() => {
-    console.log("avatarCount", avatarCount);
-  }, [avatarCount])
+    console.log("avatarData", avatarData);
+    console.log("selectedAvatarIndex", selectedAvatarIndex);
+  }, [avatarData, selectedAvatarIndex])
 
   const saveForm = () => {
     setShowModal(false);
     const newAvatar = {
       name,
       gender,
+      key: selectedAvatarIndex + 1,
+      text: name,
+      value: name,
     }
-    setAvatarCount([...avatarCount, newAvatar]);
+    setAvatarData([...avatarData, newAvatar]);
+    if(avatarData.length >= 1) {
+      setSelectedAvatarIndex(selectedAvatarIndex + 1)
+      setEditEntity("Body")
+    }
   }
   
   const createAnotherAvatar = () => {
     setShowModal(true);
   }
 
-  const deleteAvatar = (index) => {
-    const duplicateArray = avatarCount.slice();
-    duplicateArray.splice(index, 1);
-    setAvatarCount([...duplicateArray])
+  const deleteAvatar = () => {
+    if(confirm("Are you sure you want to delete this avatar?")) {
+      const duplicateArray = avatarData.slice();
+      duplicateArray.splice(selectedAvatarIndex, 1);
+      setAvatarData([...duplicateArray])
+      setSelectedAvatarIndex(selectedAvatarIndex === 0 ? 0 : selectedAvatarIndex - 1);
+    }
   }
 
   const updateAvatar = (index, entity, value) => {
-    avatarCount[index] = Object.assign(avatarCount[index], {[entity]: value})
-    setAvatarCount([...avatarCount]);
+    avatarData[index] = Object.assign(avatarData[index], {[entity]: value})
+    setAvatarData([...avatarData]);
+  }
+
+  const resetSelection = () => {
+    // setGender(null);
+    // setAge(null);
+    // setName(null);
+    setEditEntity('Body')
+    setSelectedBody(null);
+    setSelectedHair(null);
+    setSelectedTop(null);
+    setSelectedBottom(null);
+    setSelectedShoes(null);
+
+    updateAvatar(selectedAvatarIndex, "body", null)
+    updateAvatar(selectedAvatarIndex, "hair", null)
+    updateAvatar(selectedAvatarIndex, "top", null)
+    updateAvatar(selectedAvatarIndex, "bottom", null)
+    updateAvatar(selectedAvatarIndex, "shoes", null)
+  }
+
+  const handleNameDropdown = (selectedName) => {
+    console.log("selectedName", selectedName);
+    var itemIndex = avatarData.findIndex(item => item.value === selectedName);
+    console.log("itemIndex", itemIndex)
+    setSelectedAvatarIndex(itemIndex);
+    setEditEntity('Body');
+  }
+
+  const renderFemaleSelectionContainer = (editEntity) => {
+    if (editEntity === 'Body') {
+      return (
+        <div className="row">
+          {bodylist.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "body", item); setSelectedBody(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === avatarData[selectedAvatarIndex].body ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Hair') {
+      return (
+        <div className="row">
+          {hairlist.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "hair", item); setSelectedHair(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Top') {
+      return (
+        <div className="row">
+          {topslist.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "top", item); setSelectedTop(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Bottom') {
+      return (
+        <div className="row">
+          {pantslist.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "bottom", item); setSelectedBottom(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Shoes') {
+      return (
+        <div className="row">
+          {shoeslist.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "shoes", item); setSelectedShoes(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
+  }
+
+  const renderMaleSelectionContainer = (editEntity) => {
+    if (editEntity === 'Body') {
+      return (
+        <div className="row">
+          {bodylist_man.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "body", item); setSelectedBody(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === avatarData[selectedAvatarIndex].body ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Hair') {
+      return (
+        <div className="row">
+          {hairlist_man.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "hair", item); setSelectedHair(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedHair ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Top') {
+      return (
+        <div className="row">
+          {shirtslist_man.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "top", item); setSelectedTop(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedTop ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Bottom') {
+      return (
+        <div className="row">
+          {pantslist_man.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "bottom", item); setSelectedBottom(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedBottom ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    } else if (editEntity === 'Shoes') {
+      return (
+        <div className="row">
+          {shoeslist_man.map((item, index) => {
+            return (
+              <div onClick={() => {updateAvatar(selectedAvatarIndex, "shoes", item); setSelectedShoes(item)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                <div className={`selection-card ${item === selectedShoes ? "selected" : ""}`}>
+                  <img src={item} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
   }
 
   return (
@@ -52,39 +277,82 @@ const CreateAvatar = ({ location }) => {
       {!showModal && (
         <Container className="my-2" fluid>
           <Row className="justify-content-center">
-            {avatarCount.map((avatar, index) => {
-              return (
-                <div key={index} className="col-lg-4 col-md-4 col-sm-6 col-12 text-center">
-                <EditAvatar
-                  index={index}
-                  name={avatar.name}
-                  gender={avatar.gender}
-                  setShowNameModal={setShowNameModal}
-                  deleteAvatar={deleteAvatar}
-                  updateAvatar={updateAvatar}
-                  body={avatar.body}
-                  hair={avatar.hair}
-                  top={avatar.top}
-                  bottom={avatar.bottom}
-                  shoes={avatar.shoes}
+            <div className="col-lg-6 col-md-6 col-sm-6 col-12 text-center">
+              <EditAvatar
+                name={avatarData[selectedAvatarIndex].name}
+                gender={avatarData[selectedAvatarIndex].gender}
+                editEntity={editEntity}
+                setShowNameModal={setShowNameModal}
+                deleteAvatar={deleteAvatar}
+                updateAvatar={updateAvatar}
+                body={avatarData[selectedAvatarIndex].body}
+                hair={avatarData[selectedAvatarIndex].hair}
+                top={avatarData[selectedAvatarIndex].top}
+                bottom={avatarData[selectedAvatarIndex].bottom}
+                shoes={avatarData[selectedAvatarIndex].shoes}
+              />
+            </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 col-12 text-center">
+              <div className="row control-row">
+                <div className="col-6 col-lg-6 col-md-6">
+                <Dropdown
+                  fluid
+                  selection
+                  className="mt-2"
+                  options={avatarData}
+                  value={avatarData[selectedAvatarIndex].name}
+                  onChange={(event, data) => handleNameDropdown(data.value)}
                 />
                 </div>
-              )
-              })
-            }
+                {/* for mobile only */}
+                <div className="mobile-controls col-6 col-lg-6 col-md-6">
+                  <button onClick={() => resetSelection()} className="ui icon button blue mt-2">
+                    <Icon name='undo' />
+                  </button>
+                  <button onClick={() => createAnotherAvatar()} className="ui icon button green mt-2">
+                    <Icon name='add' />
+                  </button>
+                  <button onClick={() => deleteAvatar()} className="ui icon button red mt-2">
+                    <Icon name='delete' />
+                  </button>
+                </div>
+                {/* for desktop only */}
+                <div className="col-6 col-lg-6 col-md-6 d-none d-lg-block d-md-block">
+                  <Button className="mt-2" size="medium" onClick={() => resetSelection()} color='blue'>
+                    <Icon name='undo' />
+                    Reset
+                  </Button>
+                  <Button className="mt-2" size="medium" onClick={() => createAnotherAvatar()} color='green'>
+                    <Icon name='add' />
+                    Add
+                  </Button>
+                  <Button className="mt-2" disabled={avatarData.length === 1} size="medium" onClick={() => deleteAvatar()} color='red'>
+                    <Icon name='delete' />
+                    Delete
+                  </Button>
+                </div>
+              </div>
+              <Dropdown
+                fluid
+                selection
+                className="mt-3"
+                options={svgOptions}
+                value={editEntity}
+                onChange={(event, data) => setEditEntity(data.value)}
+              />
+              <div className="svgs-container">
+                {avatarData[selectedAvatarIndex].gender === "male" ? renderMaleSelectionContainer(editEntity) : renderFemaleSelectionContainer(editEntity)}
+              </div>
+            </div>
           </Row>
 
           <Divider />
 
           <div className="row justify-content-center">
-            <Button onClick={() => createAnotherAvatar()} color='red'>
-              <Icon name='heart' />
-              Create Another Avatar
-          </Button>
             <Button color='green'>
               <Icon name='save' />
               Print Avatar
-          </Button>
+            </Button>
           </div>
 
         </Container>
@@ -134,7 +402,7 @@ const CreateAvatar = ({ location }) => {
           </Modal>
         )
       }
-      {
+      {/* {
         showNameModal && (
           <Modal
             centered
@@ -144,7 +412,7 @@ const CreateAvatar = ({ location }) => {
             <ModalBody>
               <div className="d-flex align-items-center">
                 <h4 className="text-center mr-4 mb-0">Name:</h4>
-                <Input value={name} onChange={(e) => setName(e.target.value)} placeholder='Enter Name...' size="large" />
+                <Input value={avatarData[selectedAvatarIndex].name} onChange={(e) => setName(e.target.value)} placeholder='Enter Name...' size="large" />
               </div>
             </ModalBody>
             <ModalFooter>
@@ -152,7 +420,7 @@ const CreateAvatar = ({ location }) => {
             </ModalFooter>
           </Modal>
         )
-      }
+      } */}
       <Footer />
     </>
   )
