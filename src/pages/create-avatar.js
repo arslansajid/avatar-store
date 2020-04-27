@@ -44,6 +44,7 @@ const svgOptions = [
 const CreateAvatar = ({ location }) => {
   const [showModal, setShowModal] = useState(true);
   const [showNameModal, setShowNameModal] = useState(false);
+  const [printAvatarModal, setPrintAvatarModal] = useState(false);
   const [gender, setGender] = useState(null);
   const [name, setName] = useState(null);
   const [avatarData, setAvatarData] = useState([]);
@@ -67,7 +68,7 @@ const CreateAvatar = ({ location }) => {
     const newAvatar = {
       name,
       gender,
-      key: selectedAvatarIndex + 1,
+      key: `${selectedAvatarIndex}_${name}_${gender}`,
       text: name,
       value: name,
     }
@@ -349,7 +350,7 @@ const CreateAvatar = ({ location }) => {
           <Divider />
 
           <div className="row justify-content-center">
-            <Button color='green'>
+            <Button onClick={() => setPrintAvatarModal(true)} color='green'>
               <Icon name='save' />
               Print Avatar
             </Button>
@@ -421,6 +422,48 @@ const CreateAvatar = ({ location }) => {
           </Modal>
         )
       } */}
+      {
+        printAvatarModal && (
+          <Modal
+            centered
+            size={"lg"}
+            backdrop={"static"}
+            isOpen={printAvatarModal} toggle={() => setShowNameModal(!printAvatarModal)}>
+            <ModalHeader toggle={() => setPrintAvatarModal(!printAvatarModal)}>Print Avatars</ModalHeader>
+            <ModalBody>
+              <div className="container">
+                <div className="row">
+                  {
+                    avatarData.map((avatar, index) => {
+                      return (
+                        <div key={index} className="col-4 text-center">
+                          <EditAvatar
+                            name={avatar.name}
+                            gender={avatar.gender}
+                            editEntity={editEntity}
+                            setShowNameModal={setShowNameModal}
+                            deleteAvatar={deleteAvatar}
+                            updateAvatar={updateAvatar}
+                            body={avatar.body}
+                            hair={avatar.hair}
+                            top={avatar.top}
+                            bottom={avatar.bottom}
+                            shoes={avatar.shoes}
+                            staticHeight={false}
+                          />
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
+            </ModalBody>
+            <ModalFooter>
+              <Button onClick={() => setPrintAvatarModal(false)} size="large" className="ui green color mt-3">Print</Button>
+            </ModalFooter>
+          </Modal>
+        )
+      }
       <Footer />
     </>
   )
