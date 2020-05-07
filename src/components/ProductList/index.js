@@ -3,14 +3,15 @@ import React from 'react'
 import {Card, Image} from 'semantic-ui-react'
 import Img from 'gatsby-image'
 import {Link} from 'gatsby'
-import {watchItems} from "../../../static/api"
+// import {watchItems} from "../../../static/api"
 
 const mapProductsToItems = watchItems =>
   watchItems.map((item, index) => {
     const price = item.price || null
     return {
       as: Link,
-      to: `/product/${item.id}/`,
+      to: `/product/${item.ID}/`,
+      state: { frameId: item.ID },
       childKey: item.id,
       image: (
         // <Image>
@@ -18,7 +19,7 @@ const mapProductsToItems = watchItems =>
         // </Image>
         <Image
         size="large"
-        src={item.image}
+        src={item.gallery[0].url}
         alt="I love Lamp"
       />
       ),
@@ -31,9 +32,9 @@ const mapProductsToItems = watchItems =>
 //   <Card.Group items={mapProductsToItems(watchItems)} itemsPerRow={3} stackable />
 // )
 
-const ProductList = () => {
+const ProductList = (props) => {
   return (
-    <Card.Group items={mapProductsToItems(watchItems)} itemsPerRow={3} stackable />
+    <Card.Group items={mapProductsToItems(props.products)} itemsPerRow={3} stackable />
   )
 }
 

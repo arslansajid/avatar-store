@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import get from 'lodash/get'
-import { Image, Header, Button } from 'semantic-ui-react'
+import { Image, Header, Loader } from 'semantic-ui-react'
 import ProductList from '../components/ProductList'
 import FilterSidebar from '../components/FilterSidebar/DesktopFilterSidebar'
 import MobileFilterTopbar from '../components/FilterSidebar/MobileFilterTopbar'
@@ -9,6 +9,7 @@ import SEO from '../components/SEO'
 import logo from '../images/ill-short-dark.svg'
 import heart from '../images/heart.png'
 import Layout from '../components/Layout'
+import {fetchFrames} from '../Api';
 
 import '../styles/landing.css';
 import '../styles/filters.css';
@@ -19,45 +20,63 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const StoreIndex = ({ location }) => {
-  const data = useStaticQuery(graphql`
-    query IndexQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-      allMoltinProduct {
-        edges {
-          node {
-            id
-            name
-            description
-            mainImageHref
-            meta {
-              display_price {
-                with_tax {
-                  amount
-                  currency
-                  formatted
-                }
-              }
-            }
-            mainImage {
-              childImageSharp {
-                sizes(maxWidth: 600) {
-                  ...GatsbyImageSharpSizes
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `)
+  const [frames, setFrames] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const siteTitle = get(data, 'site.siteMetadata.title')
-  const products = get(data, 'allMoltinProduct.edges')
-  const filterProductsWithoutImages = products.filter(v => v.node.mainImageHref)
+  useEffect(() => {
+    setLoading(true);
+    fetchFrames()
+    .then((res) => {
+      console.log("FRAMES RESPONSE!", res);
+      setFrames(res.data.items);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setLoading(false);
+      console.log("ERROR FETCHING FRAMES!", err);
+    })
+  }, []);
+
+  // const data = useStaticQuery(graphql`
+  //   query IndexQuery {
+  //     site {
+  //       siteMetadata {
+  //         title
+  //       }
+  //     }
+  //     allMoltinProduct {
+  //       edges {
+  //         node {
+  //           id
+  //           name
+  //           description
+  //           mainImageHref
+  //           meta {
+  //             display_price {
+  //               with_tax {
+  //                 amount
+  //                 currency
+  //                 formatted
+  //               }
+  //             }
+  //           }
+  //           mainImage {
+  //             childImageSharp {
+  //               sizes(maxWidth: 600) {
+  //                 ...GatsbyImageSharpSizes
+  //               }
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+
+  const siteTitle = "Avatar Store";
+  // const siteTitle = get(data, 'site.siteMetadata.title')
+  // const products = get(data, 'allMoltinProduct.edges')
+  // const filterProductsWithoutImages = products.filter(v => v.node.mainImageHref)
   return (
     <Layout location={location}>
       <SEO title={siteTitle} />
@@ -81,7 +100,6 @@ const StoreIndex = ({ location }) => {
         >I
           <Image style={{width: '15vw', height: '12vw'}} src={heart} alt="logo" />
           AVATAR
-          {/* <p>I LOVE AVATAR</p> */}
         </Header.Content>
       </Header>
       <div className="ui grid">
@@ -90,18 +108,17 @@ const StoreIndex = ({ location }) => {
           <FilterSidebar />
         </div>
         <div className="twelve wide tablet twelve wide computer sixteen wide mobile column">
-          <ProductList products={filterProductsWithoutImages} />
+          {
+            loading
+            ?
+            <Loader active inline="centered" size="big" />
+            :
+            <ProductList products={frames} />
+          }
         </div>
       </div>
     </Layout>
   )
-}
-
-const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'row',
-  }
 }
 
 export default StoreIndex

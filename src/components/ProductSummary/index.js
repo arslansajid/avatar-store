@@ -37,40 +37,14 @@ const images = [
   },
 ];
 
-const assets = [
-  {
-    image: 'pants.svg'
-  },
-  {
-    image: 'body.svg'
-  },
-  {
-    image: 'body2.svg'
-  },
-  {
-    image: 'shirt.svg'
-  },
-  {
-    image: 'shirt2.svg'
-  },
-  {
-    image: 'bg1.svg'
-  },
-  {
-    image: 'bg2.svg'
-  },
-  {
-    image: 'heart.png'
-  }
-]
 
-const ProductSummary = ({id, name, meta, sku, mainImage}) => {
+const ProductSummary = (props) => {
   const [width, setWidth] = useState(0);
   const [positionArray, setPositionArray] = useState([]);
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    console.log("STATE $$$$$$$$$$$$", positionArray, selected)
+    console.log("STATE $$$$$$$$$$$$", props)
     if(isBrowser()) {
       setWidth(window.innerWidth);
       }
@@ -102,13 +76,13 @@ const ProductSummary = ({id, name, meta, sku, mainImage}) => {
         </div>
         <div className="col-lg-4">
         <Item.Content>
-          <Item.Header className="my-3">{name}</Item.Header>
+          <Item.Header className="my-3">{props.product.name}</Item.Header>
             <Item.Description>
-              <p>{meta.display_price.with_tax.formatted}</p>
-              <Label className="my-2">{`SKU: ${sku}`}</Label>
+              <p>{props.product.price} $</p>
+              <Label className="my-2">{`SKU: ${props.product.name}`}</Label>
             </Item.Description>
             <Item.Extra>
-              <AddToCart productId={id} />
+              <AddToCart productId={props.product.ID} />
               <Link to="/create-avatar">
                 <Button className="ui red color mt-3">Create Avatar</Button>
               </Link>
