@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-use-before-define */
 
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react';
+import axios from 'axios';
+import Cookie from 'js-cookie';
 import {navigate} from 'gatsby'
 import {Header, Form, Input, Button, Segment, Message, Container} from 'semantic-ui-react'
-import SEO from '../components/SEO'
-import {login} from '../../lib/moltin'
+import SEO from '../components/SEO';
+// import {login} from '../../lib/moltin';
+import {userSignIn} from '../Api';
 import AuthContext from '../components/Context/AuthContext'
 import Layout from '../components/Layout'
 import useForm from '../components/Hooks/useForm'
@@ -15,18 +18,33 @@ const LoginPage = ({location}) => {
   const [apiError, setApiError] = useState([])
   const {updateToken} = useContext(AuthContext)
 
+  useEffect(() => {
+    console.log("STATE:", {loading, apiError})
+  }, [apiError, loading])
+
   const formLogin = () => {
     setLoading(true)
-    login({email: values.email, password: values.password})
-      .then(({id, token}) => {
-        localStorage.setItem('customerToken', token)
-        localStorage.setItem('mcustomer', id)
-        updateToken()
-        navigate('/myaccount/')
+    userSignIn({email: values.email, password: values.password})
+      // .then(({id, token}) => {
+      //   localStorage.setItem('customerToken', token)
+      //   localStorage.setItem('mcustomer', id)
+      //   updateToken()
+      //   navigate('/myaccount/')
+      .then(response => {
+        if (response && response.status === 200) {
+          console.log("###############################", response)
+          const { Token } = response.data;
+          axios.defaults.headers.common.Authorization = `Bearer ${Token}`;
+          Cookie.set('family_portrait_access_token', `${Token}`, { expires: 14 });
+          localStorage.setItem('customerToken', Token)
+          localStorage.setItem('mcustomer', Token)
+          updateToken()
+          navigate('/myaccount/')
+        }
       })
       .catch(e => {
         setLoading(false)
-        setApiError(e.errors || e)
+        setApiError(e.error || e)
       })
   }
   const {values, handleChange, handleSubmit, errors} = useForm(
