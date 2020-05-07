@@ -6,7 +6,8 @@ import {navigate} from 'gatsby'
 import {Header, Form, Input, Button, Segment, Message, Container} from 'semantic-ui-react'
 import SEO from '../components/SEO'
 import AuthContext from '../components/Context/AuthContext'
-import {register} from '../../lib/moltin'
+// import {register} from '../../lib/moltin'
+import {userSignUp} from '../Api';
 import Layout from '../components/Layout'
 import useForm from '../components/Hooks/useForm'
 
@@ -17,7 +18,7 @@ const Register = ({location}) => {
 
   const formRegister = () => {
     setLoading(true)
-    register({
+    userSignUp({
       name: values.name,
       email: values.email,
       password: values.password,
@@ -32,7 +33,7 @@ const Register = ({location}) => {
       .catch(e => {
         console.log(e)
         setLoading(false)
-        setApiError(e.errors || e)
+        setApiError(e.data || e)
       })
   }
 
