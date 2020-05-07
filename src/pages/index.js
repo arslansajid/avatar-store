@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SEO from '../components/SEO'
 import Layout from '../components/Layout'
 import Header from '../components/Header'
@@ -17,9 +17,10 @@ import {
   Row,
   Col
 } from "reactstrap";
-import {Link} from 'gatsby'
+import { Link } from 'gatsby'
 import { Icon, Button } from 'semantic-ui-react'
 import Parallax from '../components/parallax';
+import { getUserProfile } from '../Api';
 
 import '../styles/landing.css';
 import '../styles/filters.css';
@@ -29,12 +30,23 @@ import '../styles/productPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 
-const Home = ({location}) => (
-  <>
-  <Header location={location} />
-    <SEO title="Home" />
-    <Parallax />
-    <div className="main">
+const Home = ({ location }) => {
+  useEffect(() => {
+    getUserProfile()
+    .then((res) => {
+      console.log("USER DATA !", res.data)
+    })
+    .catch((error) => {
+      console.log("ERROR FETCHING USER DATA !", error.data.message)
+    })
+  }, [])
+
+  return (
+    <>
+      <Header location={location} />
+      <SEO title="Home" />
+      <Parallax />
+      <div className="main">
         <div className="section text-center">
           <Container>
             <Row>
@@ -69,7 +81,7 @@ const Home = ({location}) => (
                       Spend your time generating new ideas. You don't have to
                       think of implementing.
                     </p>
-                    <Button className="ui red button" color="info" >
+                    <Button className="ui red button"  >
                       See more
                     </Button>
                   </div>
@@ -83,7 +95,7 @@ const Home = ({location}) => (
                       Larger, yet dramatically thinner. More powerful, but
                       remarkably power efficient.
                     </p>
-                    <Button className="ui red button" color="info" >
+                    <Button className="ui red button"  >
                       See more
                     </Button>
                   </div>
@@ -97,7 +109,7 @@ const Home = ({location}) => (
                       Choose from a veriety of many colors resembling sugar
                       paper pastels.
                     </p>
-                    <Button className="ui red button" color="info" >
+                    <Button className="ui red button"  >
                       See more
                     </Button>
                   </div>
@@ -114,7 +126,7 @@ const Home = ({location}) => (
                       Find unique and handmade delightful designs related items
                       directly from our sellers.
                     </p>
-                    <Button className="ui red button" color="info" >
+                    <Button className="ui red button"  >
                       See more
                     </Button>
                   </div>
@@ -130,7 +142,7 @@ const Home = ({location}) => (
               <Col md="4">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
                         src={require("../images/heart.png")}
@@ -138,7 +150,7 @@ const Home = ({location}) => (
                     </a>
                   </div>
                   <CardBody>
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <div className="author">
                         <CardTitle tag="h4">Henry Ford</CardTitle>
                         <h6 className="card-category">Product Manager</h6>
@@ -153,24 +165,24 @@ const Home = ({location}) => (
                   <CardFooter className="text-center">
                     <Button
                       className="btn-just-icon btn-neutral"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"facebook"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"twitter"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"google"} />
@@ -181,7 +193,7 @@ const Home = ({location}) => (
               <Col md="4">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
                         src={require("../images/heart.png")}
@@ -189,7 +201,7 @@ const Home = ({location}) => (
                     </a>
                   </div>
                   <CardBody>
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <div className="author">
                         <CardTitle tag="h4">Sophie West</CardTitle>
                         <h6 className="card-category">Designer</h6>
@@ -205,24 +217,24 @@ const Home = ({location}) => (
                   <CardFooter className="text-center">
                     <Button
                       className="btn-just-icon btn-neutral"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"facebook"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"twitter"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       {/* <i className="fa fa-linkedin" /> */}
@@ -234,7 +246,7 @@ const Home = ({location}) => (
               <Col md="4">
                 <Card className="card-profile card-plain">
                   <div className="card-avatar">
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
                         src={require("../images/heart.png")}
@@ -242,7 +254,7 @@ const Home = ({location}) => (
                     </a>
                   </div>
                   <CardBody>
-                    <a  onClick={e => e.preventDefault()}>
+                    <a onClick={e => e.preventDefault()}>
                       <div className="author">
                         <CardTitle tag="h4">Robert Orben</CardTitle>
                         <h6 className="card-category">Developer</h6>
@@ -258,24 +270,24 @@ const Home = ({location}) => (
                   <CardFooter className="text-center">
                     <Button
                       className="btn-just-icon btn-neutral"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"facebook"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"twitter"} />
                     </Button>
                     <Button
                       className="btn-just-icon btn-neutral ml-1"
-                      color="link"
                       
+
                       onClick={e => e.preventDefault()}
                     >
                       <Icon name={"google"} />
@@ -336,7 +348,8 @@ const Home = ({location}) => (
         </div>
       </div>
       <Footer />
-  </>
-)
+    </>
+  )
+}
 
 export default Home
