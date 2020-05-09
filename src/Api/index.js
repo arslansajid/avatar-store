@@ -1,5 +1,5 @@
-import Config from '../../Config';
-import axiosInstance from '../../api.config';
+import Config from './Config';
+import axiosInstance from './api.config';
 
 export const getUserProfile = async () => {
     try {

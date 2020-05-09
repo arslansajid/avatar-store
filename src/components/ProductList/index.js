@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from 'react'
 import {Card, Image} from 'semantic-ui-react'
 import Img from 'gatsby-image'
@@ -14,9 +13,6 @@ const mapProductsToItems = watchItems =>
       state: { frameId: item.ID },
       childKey: item.id,
       image: (
-        // <Image>
-        //   <Img sizes={{width: 125, height: 125}} alt={item.name} />
-        // </Image>
         <Image
         size="large"
         src={item.gallery[0].url}
