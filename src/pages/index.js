@@ -31,15 +31,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 
 const Home = ({ location }) => {
-  useEffect(() => {
-    getUserProfile()
-    .then((res) => {
-      console.log("USER DATA !", res.data)
-    })
-    .catch((error) => {
-      console.log("ERROR FETCHING USER DATA !", error.data.message)
-    })
-  }, [])
+  // useEffect(() => {
+  //   getUserProfile()
+  //   .then((res) => {
+  //     console.log("USER DATA !", res.data)
+  //   })
+  //   .catch((error) => {
+  //     console.log("ERROR FETCHING USER DATA !", error.data.message)
+  //   })
+  // }, [])
 
   return (
     <>
