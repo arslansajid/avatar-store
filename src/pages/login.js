@@ -32,7 +32,6 @@ const LoginPage = ({location}) => {
       //   navigate('/myaccount/')
       .then(response => {
         if (response && response.status === 200) {
-          console.log("###############################", response)
           const { Token } = response.data;
           axios.defaults.headers.common.Authorization = `Bearer ${Token}`;
           Cookie.set('family_portrait_access_token', `${Token}`, { expires: 14 });
@@ -58,7 +57,7 @@ const LoginPage = ({location}) => {
         <Message
           error
           header="Sorry"
-          content="Please check your login details and try again."
+          content={apiError.data}
         />
       )
     }
