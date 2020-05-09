@@ -24,11 +24,13 @@ const Register = ({location}) => {
       password: values.password,
     })
       .then(data => {
-        const {id, token} = data
-        localStorage.setItem('customerToken', token)
-        localStorage.setItem('mcustomer', id)
-        updateToken()
-        navigate('/myaccount/')
+        // const {id, token} = data
+        // localStorage.setItem('customerToken', token)
+        // localStorage.setItem('mcustomer', id)
+        // updateToken()
+        
+        // navigate('/myaccount/')
+        navigate('/login/')
       })
       .catch(e => {
         console.log(e)
@@ -45,7 +47,7 @@ const Register = ({location}) => {
   const handleErrors = errors => {
     if (!Array.isArray(errors) && !errors.length > 0) {
       return (
-        <Message error header="Sorry" content="Cannot register at this time." />
+        <Message error header="Sorry" content={apiError.data ? apiError.data : apiError} />
       )
     }
     return errors.map(e => (
