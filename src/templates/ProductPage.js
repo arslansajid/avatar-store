@@ -4,6 +4,7 @@ import SEO from '../components/SEO'
 import {Loader} from "semantic-ui-react";
 import ProductSummary from '../components/ProductSummary'
 import ProductAttributes from '../components/ProductAttributes'
+import ProductReviews from '../components/ProductReviews'
 import Layout from '../components/Layout'
 import { fetchFrameById } from '../Api'
 
@@ -44,6 +45,17 @@ const ProductPageTemplate = (props) => {
         <>
           <ProductSummary product={product} />
           {/* <ProductAttributes {...product} /> */}
+          {
+            product.review && !!product.review.length
+            ?
+            product.review.map((review, index) => {
+              return (
+                <ProductReviews review={review} />
+              )
+            })
+            :
+            <h3>No Reviews found!</h3>
+          }
         </>
       }
     </Layout>
