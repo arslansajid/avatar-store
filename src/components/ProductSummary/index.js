@@ -42,13 +42,28 @@ const ProductSummary = (props) => {
   const [width, setWidth] = useState(0);
   const [positionArray, setPositionArray] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [productImages, setProductImages] = useState([])
 
   useEffect(() => {
     console.log("STATE $$$$$$$$$$$$", props)
+    if(productImages.length === 0) {
+      mapImagesToForm(props.product.gallery);
+    }
     if(isBrowser()) {
       setWidth(window.innerWidth);
       }
   }, [width, positionArray, setSelected])
+
+  const mapImagesToForm = (images) => {
+    const Arr = [];
+    images.forEach(img => {
+      Arr.push({
+        original: img.url,
+        thumbnail: img.url,
+      },)
+    })
+    setProductImages([...Arr])
+  }
 
   const onDragStart = (e) => {
     // e.preventDefault();
@@ -67,7 +82,7 @@ const ProductSummary = (props) => {
         <div className="col-lg-8 p-0">
           <div className="gallery-container">
             <ImageGallery
-              items={images}
+              items={productImages}
               thumbnailPosition={!!width && width < 768 ? 'bottom' : 'left'}
               showFullscreenButton={false}
               showPlayButton={false}
@@ -76,9 +91,9 @@ const ProductSummary = (props) => {
         </div>
         <div className="col-lg-4">
         <Item.Content>
-          <Item.Header className="my-3">{props.product.name}</Item.Header>
+          <h4 className="my-3">{props.product.name}</h4>
             <Item.Description>
-              <p>{props.product.price} $</p>
+              <p className="bold">{props.product.price}$</p>
               <Label className="my-2">{`SKU: ${props.product.name}`}</Label>
             </Item.Description>
             <Item.Extra>
