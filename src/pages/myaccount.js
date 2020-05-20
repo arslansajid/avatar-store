@@ -23,15 +23,24 @@ const MyAccount = ({ location }) => {
     if (!token) {
       navigate('/login/')
     } else {
-      axios.get(`${Config.API_END_POINT}/user/me`) //Instance is not used here intentionally
-      .then((res) => {
-        console.log("USER DATA !", res.data)
-        setUser(res.data)
-        setLoading(false)
-      })
-      .catch((error) => {
-        // console.log("ERROR FETCHING USER DATA !", error.data.message)
-      })
+      getUserProfile()
+        .then((res) => {
+          console.log("USER DATA !", res.data)
+          setUser(res.data)
+          setLoading(false)
+        })
+        .catch((error) => {
+          console.log("ERROR FETCHING USER DATA !", error.data.message)
+        })
+      // axios.get(`${Config.API_END_POINT}/user/me`) //Instance is not used here intentionally
+      // .then((res) => {
+      //   console.log("USER DATA !", res.data)
+      //   setUser(res.data)
+      //   setLoading(false)
+      // })
+      // .catch((error) => {
+      //   // console.log("ERROR FETCHING USER DATA !", error.data.message)
+      // })
     }
     // getOrders(token)
     //   .then(({data, meta, included}) => {
