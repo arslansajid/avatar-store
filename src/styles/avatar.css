@@ -38,6 +38,12 @@
     cursor: pointer;
 }
 
+.image-asset {
+    width: 100%;
+    height: 90%;
+    object-fit: contain;
+}
+
 .body-image {
     position: absolute;
     left: 0;

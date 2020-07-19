@@ -40,23 +40,23 @@ const EditAvatar = (props) => {
               <div className="avatar" style={staticHeight ? width <= 768 ? {minHeight: '480px'} : {minHeight: '700px'} : width <= 768 ? {minHeight: '170px'} : {minHeight: '280px'}}>
               {
                 hair && (
-                  <img className="hair-image" src={hair} alt="avatar-hair" />
+                  <img className="hair-image image-asset" src={hair} alt="avatar-hair" />
                 )
               }
               {
                 top && (
-                  <img className="top-image" src={top} alt="avatar-top" />
+                  <img className="top-image image-asset" src={top} alt="avatar-top" />
                 )
               }
-              <img className="body-image" src={bodyImageSource} alt="avatar-body" />
+              <img className="body-image image-asset" src={bodyImageSource} alt="avatar-body" />
               {
                 bottom && (
-                  <img className="bottom-image" src={bottom} alt="avatar-bottom" />
+                  <img className="bottom-image image-asset" src={bottom} alt="avatar-bottom" />
                 )
               }
               {
                 shoes && (
-                  <img className="shoes-image" src={shoes} alt="avatar-shoes" />
+                  <img className="shoes-image image-asset" src={shoes} alt="avatar-shoes" />
               )}
               </div>
                 {/* <div className="d-flex justify-content-center my-3">
