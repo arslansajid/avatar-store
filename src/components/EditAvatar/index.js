@@ -4,7 +4,7 @@ import isBrowser from "../../utils/isBrowser";
 import { Dropdown, Button, Icon } from "semantic-ui-react";
 
 const EditAvatar = (props) => {
-    const {editEntity, name, gender, setShowNameModal, deleteAvatar, updateAvatar, body, hair, top, bottom, shoes, staticHeight} = props;
+    const {name, gender, setShowNameModal, deleteAvatar, updateAvatar, body, hair, top, bottom, shoes, staticHeight} = props;
 
     const [width, setWidth] = useState(0);
 
@@ -74,13 +74,11 @@ const EditAvatar = (props) => {
 }
 
 EditAvatar.propTypes = {
-    editEntity: PropTypes.string.isRequired,
     gender: PropTypes.string.isRequired,
     staticHeight: PropTypes.bool.isRequired,
 };
 
 EditAvatar.defaultProps = {
-    editEntity: 'Body',
     gender: 'male',
     staticHeight: true
 };
