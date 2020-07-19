@@ -23,22 +23,22 @@ const svgOptions = [
   {
     key: '2',
     text: 'Hair',
-    value: 'Hair',
+    value: 'hair',
   },
   {
     key: '4',
     text: 'Top',
-    value: 'Top',
+    value: 'top',
   },
   {
     key: '5',
     text: 'Bottom',
-    value: 'Bottom',
+    value: 'bottom',
   },
   {
     key: '6',
     text: 'Shoes',
-    value: 'Shoes',
+    value: 'shoes',
   },
 ];
 
@@ -68,7 +68,6 @@ const CreateAvatar = ({ location }) => {
 
   const saveForm = () => {
     setShowModal(false);
-    fetchAsset(gender, editEntity);
     const newAvatar = {
       name,
       gender,
@@ -81,6 +80,7 @@ const CreateAvatar = ({ location }) => {
       setSelectedAvatarIndex(selectedAvatarIndex + 1)
       setEditEntity("body")
     }
+    fetchAsset(gender, editEntity);
   }
 
   const fetchAsset = (gender, type) => {
