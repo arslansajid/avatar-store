@@ -33,19 +33,23 @@ const AddToCart = ({productId}) => {
     const error = validate(quantity)
     setError(error)
     if (!error) {
-      setLoading(true)
-      Moltin.addToCart(cartId, productId, quantity)
-        .then(() => {
-          addToCart(quantity, cartId)
-          setLoading(false)
-          setQuantity(quantity)
-          setVisible(true)
-          toggleMessage()
-        })
-        .catch(err => {
-          setError(`Error: ${err.errors[0].detail}` || 'Something went wrong')
-          setLoading(false)
-        })
+      setLoading(true);
+      addToCart(quantity, cartId);
+      setLoading(false)
+      setVisible(true)
+      // toggleMessage()
+      // Moltin.addToCart(cartId, String(productId), quantity)
+      //   .then(() => {
+      //     addToCart(quantity, cartId)
+      //     setLoading(false)
+      //     setQuantity(quantity)
+      //     setVisible(true)
+      //     toggleMessage()
+      //   })
+      //   .catch(err => {
+      //     setError(`Error: ${err.errors[0].detail}` || 'Something went wrong')
+      //     setLoading(false)
+      //   })
     }
   }
 
@@ -70,7 +74,7 @@ const AddToCart = ({productId}) => {
           disabled: loading,
         }}
       />
-      {error && <div style={{color: 'red', position: 'absolute'}}>{error}</div>}
+      {/* {error && <div style={{color: 'red', position: 'absolute'}}>{error}</div>} */}
       <Transition duration={{hide: 500, show: 500}} visible={visible}>
         <div style={{color: 'green', position: 'absolute'}}>
           <Icon name="check" />
