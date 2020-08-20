@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import SEO from '../components/SEO'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -6,6 +6,7 @@ import { Link } from 'gatsby'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row } from 'reactstrap';
 import { Card, Image, Button, Divider, Input, Dropdown, Icon } from "semantic-ui-react";
 import Loadable from "@loadable/component";
+import ReactToPrint from 'react-to-print';
 import { fetchAssetByGender } from "../Api/index"
 
 const EditAvatar = Loadable(() => import("../components/EditAvatar"));
@@ -60,6 +61,7 @@ const CreateAvatar = ({ location }) => {
   const [selectedBottom, setSelectedBottom] = useState(null);
   const [selectedShoes, setSelectedShoes] = useState(null);
   const [assets, setAssets] = useState(null);
+  const componentRef = useRef();
 
   useEffect(() => {
     console.log("avatarData", avatarData);
@@ -84,6 +86,7 @@ const CreateAvatar = ({ location }) => {
   }
 
   const fetchAsset = (gender, type) => {
+    setAssets([]);
     fetchAssetByGender(gender, type)
     .then((res) => {
       console.log("ASSETS RESPONSE!", res);
@@ -144,6 +147,7 @@ const CreateAvatar = ({ location }) => {
     console.log("itemIndex", itemIndex)
     setSelectedAvatarIndex(itemIndex);
     setEditEntity('body');
+    fetchAsset(avatarData[itemIndex].gender, 'body');
   }
 
   // const renderFemaleSelectionContainer = (editEntity) => {
@@ -298,7 +302,7 @@ const CreateAvatar = ({ location }) => {
     <>
       <Header location={location} />
       <SEO title="Create Avatar" />
-      {!showModal && (
+      {!!avatarData.length ? (
         <Container className="my-2" fluid>
           <Row className="justify-content-center">
             <div className="col-lg-6 col-md-6 col-sm-6 col-12 text-center">
@@ -368,16 +372,22 @@ const CreateAvatar = ({ location }) => {
               <div className="svgs-container">
                 {/* {avatarData[selectedAvatarIndex].gender === "male" ? renderMaleSelectionContainer(editEntity) : renderFemaleSelectionContainer(editEntity)} */}
                 <div className="row">
-                  {!!assets && assets.length && assets.map((item, index) => {
-                    let IMAGE_URL = item.gallery[0].url;
-                    return (
-                      <div onClick={() => {updateAvatar(selectedAvatarIndex, String(editEntity).toLowerCase(), IMAGE_URL); setSelectedBody(IMAGE_URL)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
-                        <div className={`selection-card ${item === avatarData[selectedAvatarIndex].body ? "selected" : ""}`}>
-                          <img src={IMAGE_URL} />
+                  {!!assets && assets.length > 0 ?
+                    assets.map((item, index) => {
+                      let IMAGE_URL = item.gallery[0].url;
+                      return (
+                        <div onClick={() => {updateAvatar(selectedAvatarIndex, String(editEntity).toLowerCase(), IMAGE_URL); setSelectedBody(IMAGE_URL)}} key={index} className="col-lg-4 col-md-4 col-sm-6 col-6 selection-card-container">
+                          <div className={`selection-card ${item === avatarData[selectedAvatarIndex].body ? "selected" : ""}`}>
+                            <img src={IMAGE_URL} />
+                          </div>
                         </div>
-                      </div>
-                    )
-                  })}
+                      )
+                    })
+                    :
+                    <div className="loading-container">
+                      <h3>Loading...</h3>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
@@ -393,9 +403,14 @@ const CreateAvatar = ({ location }) => {
           </div>
 
         </Container>
-      )}
-      {/* <p>Gender: {gender}</p>
-        <p>Name: {name}</p> */}
+      ) :
+      !showModal && (
+        <div className="text-center mt-2">
+          <Button primary onClick={() => setShowModal(!showModal)}>Create Avatar</Button>
+          <Button secondary onClick={() => setShowModal(!showModal)}>Go Back</Button>
+        </div>
+      )
+    }
       {
         showModal && (
           <Modal
@@ -403,7 +418,7 @@ const CreateAvatar = ({ location }) => {
             fade={false}
             backdrop={"static"}
             isOpen={showModal} toggle={() => setShowModal(!showModal)}>
-            <ModalHeader>Create Avatar</ModalHeader>
+            <ModalHeader toggle={() => setShowModal(!showModal)}>Create Avatar</ModalHeader>
             <ModalBody>
               <div className="d-flex align-items-center">
                 <h4 className="text-center mr-4 mb-0">Name:</h4>
@@ -467,8 +482,8 @@ const CreateAvatar = ({ location }) => {
             isOpen={printAvatarModal} toggle={() => setShowNameModal(!printAvatarModal)}>
             <ModalHeader toggle={() => setPrintAvatarModal(!printAvatarModal)}>Print Avatars</ModalHeader>
             <ModalBody>
-              <div className="container">
-                <div className="row">
+              <div className="container" ref={componentRef}>
+                <div className="row justify-content-center">
                   {
                     avatarData.map((avatar, index) => {
                       return (
@@ -495,7 +510,10 @@ const CreateAvatar = ({ location }) => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button onClick={() => setPrintAvatarModal(false)} size="large" className="ui green color mt-3">Print</Button>
+              <ReactToPrint
+                trigger={() => <Button onClick={() => setPrintAvatarModal(false)} size="large" className="ui green color mt-3">Print</Button>}
+                content={() => componentRef.current}
+              />
             </ModalFooter>
           </Modal>
         )
