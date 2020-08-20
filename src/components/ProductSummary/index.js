@@ -99,7 +99,7 @@ const ProductSummary = (props) => {
             <Item.Extra>
               <AddToCart productId={props.product.ID} />
               <Link to="/create-avatar">
-                <Button className="ui red color mt-3">Create Avatar</Button>
+                <Button className="ui red color mt-5">Create Avatar</Button>
               </Link>
             </Item.Extra>
           </Item.Content>

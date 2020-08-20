@@ -105,7 +105,7 @@ const StoreIndex = ({ location }) => {
       <div className="ui grid">
         <MobileFilterTopbar />
         <div className="four wide tablet four wide computer only column">
-          <FilterSidebar />
+          <FilterSidebar updateFrames={(value) => setFrames(value)} />
         </div>
         <div className="twelve wide tablet twelve wide computer sixteen wide mobile column">
           {
