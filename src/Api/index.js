@@ -79,3 +79,19 @@ export const fetchAssetByGender = async (gender, type) => {
       throw err.response;
     }
 };
+
+export const fetchFramesByPrice = async (start, end) => {
+  try {
+      const res = await axiosInstance.get(
+        `${Config.API_END_POINT}/fetchByPrice/frame-fetchByPrice`, {
+          params: {
+            start,
+            end
+          }
+        }
+      );
+      return res;
+    } catch (err) {
+      throw err.response;
+    }
+};
