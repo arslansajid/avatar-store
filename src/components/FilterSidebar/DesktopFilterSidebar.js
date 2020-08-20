@@ -4,8 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Icon } from 'semantic-ui-react'
 import InputRange from 'react-input-range';
 import { Colors, Sizes } from "../../../static/Filters";
+import { fetchFramesByPrice } from "../../Api/index"
 
-const CategoryFilter = () => {
+const CategoryFilter = (props) => {
+    const {updateFrames} = props;
     useEffect(() => {
     }, [filter, priceValue])
 
@@ -34,9 +36,20 @@ const CategoryFilter = () => {
         setPriceValue(newValue);
     };
 
+    const priceChangeHandler = (newValue) => {
+        fetchFramesByPrice(newValue.min, newValue.max)
+        .then((res) => {
+            console.log("res", res)
+            !!updateFrames && updateFrames(res.data.items)
+        })
+        .catch((err) => {
+            console.log("err", err)
+        })
+    }
+
     return (
         <div className="category-filter sticky">
-            <div className="filter-tab" >
+            {/* <div className="filter-tab" >
                 <button style={
                     { zIndex: 100 }}
                     className={`filter ${filter["category"] ? "selected" : ""}`}
@@ -76,9 +89,9 @@ const CategoryFilter = () => {
                     </div> :
                     null
                 }
-            </div>
+            </div> */}
 
-            <div className="filter-tab" >
+            {/* <div className="filter-tab" >
 
                 <button className={`filter ${filter["designer"] ? "selected" : ""}`}
                     onClick={
@@ -117,10 +130,10 @@ const CategoryFilter = () => {
                     :
                     null
                 }
-            </div>
+            </div> */}
 
 
-            <div className="filter-tab" >
+            {/* <div className="filter-tab" >
 
                 <button className={`filter ${filter["size"] ? "selected" : ""}`}
                     onClick={(event) => toggleFilters(event)}
@@ -143,8 +156,8 @@ const CategoryFilter = () => {
                             null
                     }
                 </div>
-            </div>
-            <div className="filter-tab">
+            </div> */}
+            {/* <div className="filter-tab">
 
                 <button className={`filter ${filter["color"] ? "selected" : ""}`}
                     onClick={(event) => toggleFilters(event)}
@@ -168,7 +181,7 @@ const CategoryFilter = () => {
                         }) :
                         null
                 }
-            </div>
+            </div> */}
             <div className="filter-tab" >
                 <button className={`filter ${filter["price"] ? "selected" : ""}`}
                     onClick={
@@ -196,8 +209,8 @@ const CategoryFilter = () => {
                                 maxValue={5000}
                                 minValue={0}
                                 value={priceValue}
-                                onChange={
-                                    (value) => handlePriceChange(value)}
+                                onChange={(value) => handlePriceChange(value)}
+                                onChangeComplete={(value) => priceChangeHandler(value)}
                             />
                         </div>
                         :
