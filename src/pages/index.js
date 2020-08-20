@@ -298,7 +298,7 @@ const Home = ({ location }) => {
             </Row>
           </Container>
         </div>
-        <div className="section landing-section">
+        {/* <div className="section landing-section">
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
@@ -345,7 +345,7 @@ const Home = ({ location }) => {
               </Col>
             </Row>
           </Container>
-        </div>
+        </div> */}
       </div>
       <Footer />
     </>
