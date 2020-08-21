@@ -97,7 +97,7 @@ const ProductSummary = (props) => {
               <Label className="my-2">{`SKU: ${props.product.name}`}</Label>
             </Item.Description>
             <Item.Extra>
-              <AddToCart productId={props.product.ID} />
+              <AddToCart product={props.product} productId={props.product.ID} />
               <Link to="/create-avatar">
                 <Button className="ui red color mt-5">Create Avatar</Button>
               </Link>

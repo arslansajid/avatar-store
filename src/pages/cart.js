@@ -14,7 +14,7 @@ const Cart = ({location}) => {
   const [completed, setCompleted] = useState(false)
   const [meta, setMeta] = useState({})
   const [cartId, setCartId] = useState({})
-  const {updateCartCount} = useContext(CartContext)
+  const {updateCartCount, cartItems, removeFromCart} = useContext(CartContext)
 
   async function getCartItems() {
     const cartIdLocal = await localStorage.getItem('mcart')
@@ -24,6 +24,7 @@ const Cart = ({location}) => {
       setMeta(meta)
       setLoading(false)
     })
+    // setTimeout(() => setLoading(false), 200)
   }
 
   useEffect(() => {
@@ -71,15 +72,24 @@ const Cart = ({location}) => {
     }
   }
 
-  const handleRemoveFromCart = itemId => {
-    Moltin.removeFromCart(itemId, cartId).then(({data, meta}) => {
-      const total = data.reduce((a, c) => a + c.quantity, 0)
-      updateCartCount(total, cartId)
-      setItems(data)
-      setMeta(meta)
-    })
+  const handleRemoveFromCart = (itemId, item) => {
+    console.log("###############", item)
+    // Moltin.removeFromCart(itemId, cartId).then(({data, meta}) => {
+    //   const total = data.reduce((a, c) => a + c.quantity, 0)
+    //   updateCartCount(total, cartId)
+    //   setItems(data)
+    //   setMeta(meta)
+    // })
+    removeFromCart(item);
   }
 
+  // let totalPrice = 0;
+
+  // useEffect(() => {
+  //   totalPrice = !!cartItems.length ? cartItems.length === 1 ? cartItems[0].price : cartItems.reduce((x, y) => x.price + y.price) : 0;
+  //   console.log('totalPrice', totalPrice)
+  // }, [cartItems])
+  
   const rest = {completed, items, loading, cartId}
 
   return (
@@ -87,10 +97,11 @@ const Cart = ({location}) => {
       <SEO title="Cart" />
       <CartItemList
         {...rest}
-        removeFromCart={item => handleRemoveFromCart(item)}
+        items={cartItems}
+        removeFromCart={item => removeFromCart(item)}
       />
       {!loading && !completed && (
-        <CartSummary {...meta} handleCheckout={handleCheckout} />
+        <CartSummary items={cartItems} {...meta} handleCheckout={handleCheckout} />
       )}
     </Layout>
   )

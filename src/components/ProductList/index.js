@@ -29,9 +29,17 @@ const mapProductsToItems = watchItems =>
 // )
 
 const ProductList = (props) => {
-  return (
-    <Card.Group items={mapProductsToItems(props.products)} itemsPerRow={3} stackable />
-  )
+  if (props.products.length > 0) {
+    return (
+      <Card.Group items={mapProductsToItems(props.products)} itemsPerRow={3} stackable />
+    )
+  } else {
+    return (
+      <div className="loading-container">
+        <h3>No items found...</h3>
+      </div>
+    )
+  }
 }
 
 export default ProductList;
