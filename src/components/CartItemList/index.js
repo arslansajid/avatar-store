@@ -4,6 +4,7 @@ import {Link} from 'gatsby'
 import {Item, Button, Loader, Message, Responsive} from 'semantic-ui-react'
 
 export default ({items, removeFromCart, loading, completed}) => {
+  console.log("@Q!@#", items)
   if (loading) return <Loader active inline="centered" />
 
   if (completed)
@@ -24,9 +25,8 @@ export default ({items, removeFromCart, loading, completed}) => {
       </Message>
     )
   const mapCartItemsToItems = items =>
-    items.map(({id, product_id, name, quantity, meta, image}) => {
-      const price = meta.display_price.with_tax.unit.formatted || ''
-      const imageUrl = image.href || '/static/moltin-light-hex.svg'
+    items.map((item, index) => {
+      const imageUrl = item.gallery[0].url || '/static/moltin-light-hex.svg'
 
       const DesktopItemImage = () => (
         <Item.Image
@@ -46,10 +46,12 @@ export default ({items, removeFromCart, loading, completed}) => {
       )
 
       return {
-        childKey: id,
+        childKey: item.ID,
         header: (
           <Item.Header>
-            <Link to={`/product/${product_id}/`}>{name}</Link>
+            {/* <Link to={`/product/${item.ID}/`}> */}
+              {item.name}
+              {/* </Link> */}
           </Item.Header>
         ),
         image: (
@@ -61,16 +63,19 @@ export default ({items, removeFromCart, loading, completed}) => {
             />
           </React.Fragment>
         ),
-        meta: `${quantity}x ${price}`,
+        meta: `1 x ${item.price}`,
         description: 'Some more information goes here....',
-        extra: (
-          <Button
-            basic
-            icon="remove"
-            floated="right"
-            onClick={() => removeFromCart(id)}
-          />
-        ),
+        // extra: (
+        //   <Button
+        //     basic
+        //     icon="remove"
+        //     floated="right"
+        //     onClick={() => {
+        //       console.log("########### in list", item)
+        //       removeFromCart(item)}
+        //   }
+        //   />
+        // ),
       }
     })
   return <Item.Group divided items={mapCartItemsToItems(items)} />
