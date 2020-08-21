@@ -6,7 +6,7 @@ import AuthContext from '../Context/AuthContext'
 import CartContext from '../Context/CartContext'
 
 const Header = ({location}) => {
-  const {cartCount} = useContext(CartContext)
+  const {cartCount, cartItems} = useContext(CartContext)
   const {token, signOut} = useContext(AuthContext)
 
   return (
@@ -15,7 +15,7 @@ const Header = ({location}) => {
         <MobileMenu
           location={location}
           token={token}
-          cartCount={cartCount}
+          cartCount={cartItems.length}
           signout={signOut}
         />
       </Responsive>
@@ -23,7 +23,7 @@ const Header = ({location}) => {
         <DesktopMenu
           location={location}
           token={token}
-          cartCount={cartCount}
+          cartCount={cartItems.length}
           signout={signOut}
         />
       </Responsive>
