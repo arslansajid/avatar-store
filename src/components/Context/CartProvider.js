@@ -4,14 +4,25 @@ import CartContext from './CartContext'
 const CartProvider = ({children}) => {
   const [cartId, setCartId] = useState(null)
   const [cartCount, setCartCount] = useState(0)
+  const [cartItems, setCartItems] = useState([])
 
-  const addToCart = (quantity, cartId) => {
-    const cartCountResult = Number(cartCount) + Number(quantity)
-    localStorage.setItem(
-      'mdata',
-      JSON.stringify({cartId, cartCount: cartCountResult}),
-    )
-    setCartCount(cartCountResult)
+  const addToCart = (item) => {
+    console.log("item", item)
+    // const cartCountResult = Number(cartCount) + Number(quantity)
+    // localStorage.setItem(
+    //   'mdata',
+    //   JSON.stringify({cartId, cartCount: cartCountResult}),
+    // )
+    // setCartCount(cartCountResult)
+    setCartItems([...cartItems, item])
+  }
+
+  const removeFromCart = (item) => {
+    console.log("remove", item)
+    console.log("remove", cartItems)
+   let updatedArray = cartItems.filter(x => x._id === item._id);
+   setCartItems([...updatedArray])
+   console.log("removeFromCart", updatedArray)
   }
 
   const updateCartCount = (cartCount, cartId) => {
@@ -38,14 +49,17 @@ const CartProvider = ({children}) => {
       const parsedData = JSON.parse(data)
       setCartCount(parsedData.cartCount || 0)
     }
-  }, [])
+    console.log("cartItems", cartItems)
+  }, [cartItems])
 
   return (
     <CartContext.Provider
       value={{
         cartId,
         cartCount,
+        cartItems,
         addToCart,
+        removeFromCart,
         updateCartCount,
       }}
     >
