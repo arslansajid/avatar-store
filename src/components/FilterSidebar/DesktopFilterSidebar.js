@@ -44,6 +44,7 @@ const CategoryFilter = (props) => {
         })
         .catch((err) => {
             console.log("err", err)
+            updateFrames([]);
         })
     }
 
