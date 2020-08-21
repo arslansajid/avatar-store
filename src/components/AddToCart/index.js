@@ -4,7 +4,7 @@ import CartContext from '../Context/CartContext'
 
 const Moltin = require('../../../lib/moltin')
 
-const AddToCart = ({productId}) => {
+const AddToCart = ({product, productId}) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -34,10 +34,11 @@ const AddToCart = ({productId}) => {
     setError(error)
     if (!error) {
       setLoading(true);
-      addToCart(quantity, cartId);
+      // addToCart(quantity, cartId);
+      addToCart(product);
       setLoading(false)
       setVisible(true)
-      // toggleMessage()
+      toggleMessage()
       // Moltin.addToCart(cartId, String(productId), quantity)
       //   .then(() => {
       //     addToCart(quantity, cartId)
@@ -75,12 +76,14 @@ const AddToCart = ({productId}) => {
         }}
       />
       {/* {error && <div style={{color: 'red', position: 'absolute'}}>{error}</div>} */}
-      <Transition duration={{hide: 500, show: 500}} visible={visible}>
+      {/* <Transition duration={{hide: 500, show: 500}} visible={visible}> */}
+      {visible && (
         <div style={{color: 'green', position: 'absolute'}}>
           <Icon name="check" />
           Added to cart
         </div>
-      </Transition>
+      )}
+      {/* </Transition> */}
     </>
   )
 }
