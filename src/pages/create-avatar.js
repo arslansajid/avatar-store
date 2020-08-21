@@ -407,7 +407,7 @@ const CreateAvatar = ({ location }) => {
       !showModal && (
         <div className="text-center mt-2">
           <Button primary onClick={() => setShowModal(!showModal)}>Create Avatar</Button>
-          <Button secondary onClick={() => setShowModal(!showModal)}>Go Back</Button>
+          <Button secondary onClick={() => window.history.back()}>Go Back</Button>
         </div>
       )
     }
