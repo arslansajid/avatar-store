@@ -90,16 +90,15 @@ const ProductSummary = (props) => {
           </div>
         </div>
         <div className="col-lg-4">
-        <Item.Content>
+        <Item.Content className="px-3">
           <h4 className="my-3">{props.product.name}</h4>
             <Item.Description>
-              <p className="bold">{props.product.price}$</p>
-              <Label className="my-2">{`SKU: ${props.product.name}`}</Label>
+              <Label className="mb-2">{`$ ${props.product.price}`}</Label>
             </Item.Description>
             <Item.Extra>
-              <AddToCart product={props.product} productId={props.product.ID} />
+              {/* <AddToCart product={props.product} productId={props.product.ID} /> */}
               <Link to="/create-avatar">
-                <Button className="ui red color mt-5">Create Avatar</Button>
+                <Button className="ui red color my-2">Use Frame</Button>
               </Link>
             </Item.Extra>
           </Item.Content>
