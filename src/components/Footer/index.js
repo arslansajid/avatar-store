@@ -32,31 +32,29 @@ const Footer = () => (
         <Grid.Row>
           <Grid.Column width={4}>
             <Header as="h4" content="About" />
-            <List>
+            {/* <List>
               <List.Item as={Link} to="/privacy/">
                 Privacy
               </List.Item>
               <List.Item as={Link} to="/terms/">
                 Terms
               </List.Item>
-            </List>
+            </List> */}
           </Grid.Column>
           <Grid.Column width={5}>
             <Header as="h4" content="Services" />
-            <List>
+            {/* <List>
               <List.Item as={Link} to="/">
                 Our Products
               </List.Item>
-            </List>
+            </List> */}
           </Grid.Column>
           <Grid.Column width={7}>
             <Header as="h4">Footer Header</Header>
             <p>
-              Lorem ipsizzle dolizzle sit amizzle, fo shizzle my nizzle adipiscing
-              elizzle. Pizzle mah nizzle velizzle, owned volutpizzle, mammasay mammasa
-              mamma oo sa quizzle, my shizz uhuh ... yih!, shit. Pellentesque nizzle for
-              sure. erizzle. Cool shiznit dolizzle dapibizzle turpis tempizzle tempor.
-    </p>
+              'Avatar-Store' and the 'Avatar-Store' logo are trade marks of Avatar-Store UK
+              Limited and are registered in numerous jurisdictions around the world.
+            </p>
             <List horizontal style={{ display: 'flex' }}>
               <List.Item
                 icon="twitter"
