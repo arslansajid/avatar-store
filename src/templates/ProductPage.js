@@ -44,8 +44,7 @@ const ProductPageTemplate = (props) => {
         :
         <>
           <ProductSummary product={product} />
-          {/* <ProductAttributes {...product} /> */}
-          {
+          {/* {
             product.review && !!product.review.length
             ?
             product.review.map((review, index) => {
@@ -55,7 +54,7 @@ const ProductPageTemplate = (props) => {
             })
             :
             <h3>No Reviews found!</h3>
-          }
+          } */}
         </>
       }
     </Layout>
