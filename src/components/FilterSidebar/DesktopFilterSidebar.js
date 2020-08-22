@@ -11,7 +11,7 @@ const CategoryFilter = (props) => {
     useEffect(() => {
     }, [filter, priceValue])
 
-    const [priceValue, setPriceValue] = useState({ min: 10, max: 1000 });
+    const [priceValue, setPriceValue] = useState({ min: 10, max: 300 });
     const [filter, setFilter] = useState({
         category: false,
         designer: false,
@@ -196,18 +196,21 @@ const CategoryFilter = (props) => {
                         ?
                         <div className="py-3 price-filter" >
                             <div className="d-flex justify-content-between" >
-                                <input className="price-input"
+                                {/* <input className="price-input"
                                     value={`$ ${priceValue.min}`}
                                     onChange={
                                         () => { }}
-                                /> <input className="price-input"
+                                />
+                                <input className="price-input"
                                     value={`$ ${priceValue.max}`}
                                     onChange={
                                         () => { }}
-                                />
+                                /> */}
+                                <div className="price-input">{`$ ${priceValue.min}`}</div>
+                                <div className="price-input">{`$ ${priceValue.max}`}</div>
                             </div>
                             <InputRange
-                                maxValue={5000}
+                                maxValue={1000}
                                 minValue={0}
                                 value={priceValue}
                                 onChange={(value) => handlePriceChange(value)}
