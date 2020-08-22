@@ -34,13 +34,13 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
               My Account
             </Menu.Item>
             <Menu.Item onClick={signout}>Sign out</Menu.Item>
-            <Menu.Item
+            {/* <Menu.Item
               as={Link}
               to="/cart/"
               active={activeItem === withPrefix('/cart/')}
             >
               <ShoppingCartIcon cartCount={cartCount} name="Cart" />
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu.Menu>
         ) : (
           <Menu.Menu position="right">
@@ -72,13 +72,13 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
             >
               Sign in
             </Menu.Item>
-            <Menu.Item
+            {/* <Menu.Item
               as={Link}
               to="/cart/"
               active={activeItem === withPrefix('/cart/')}
             >
               <ShoppingCartIcon cartCount={cartCount} name="Cart" />
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu.Menu>
         )}
       </Container>
