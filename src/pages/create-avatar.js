@@ -6,8 +6,11 @@ import { Link } from 'gatsby'
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row } from 'reactstrap';
 import { Card, Image, Button, Divider, Input, Dropdown, Icon } from "semantic-ui-react";
 import Loadable from "@loadable/component";
-import ReactToPrint from 'react-to-print';
+import ReactToPrint, { useReactToPrint } from 'react-to-print';
 import { fetchAssetByGender } from "../Api/index"
+import StripeCheckout from 'react-stripe-checkout';
+import axios from "axios"
+import { stripeCheckoutMethod } from "../Api/index"
 
 const EditAvatar = Loadable(() => import("../components/EditAvatar"));
 import '../styles/avatar.css';
@@ -67,6 +70,75 @@ const CreateAvatar = ({ location }) => {
     console.log("avatarData", avatarData);
     console.log("selectedAvatarIndex", selectedAvatarIndex);
   }, [avatarData, selectedAvatarIndex])
+
+  const handleCheckout = (information) => {
+    console.log("information", information);
+    console.log("App#handleToken");
+
+    const fd = new FormData();
+    // Send information to determine how to charge customer:
+    // body.append("product", product);
+    // body.append("quantity", 1);
+
+    // Send standard Stripe information:
+    fd.append("stripeEmail", information.email);
+    fd.append("stripeToken", information.id);
+    fd.append("stripeTokenType", information.type);
+
+
+    const {card} = information;
+    let addresses = {...card};
+
+    fd.append("stripeBillingName", addresses.name || "");
+    fd.append(
+      "stripeBillingAddressLine1",
+      addresses.address_line1 || ""
+    );
+    fd.append("stripeBillingAddressZip", addresses.address_zip || "");
+    fd.append(
+      "stripeBillingAddressState",
+      addresses.address_state || ""
+    );
+    fd.append(
+      "stripeBillingAddressCity",
+      addresses.address_city || ""
+    );
+    fd.append(
+      "stripeBillingAddressCountry",
+      addresses.address_country || ""
+    );
+    fd.append(
+      "stripeBillingAddressCountryCode",
+      addresses.billing_address_country_code || "PK"
+    );
+
+    const requestBody = {
+      "stripeEmail": information.email,
+      "stripeToken": information.id,
+      "stripeTokenType": information.type,
+    }
+
+    // not using form data here
+    stripeCheckoutMethod(requestBody)
+      .then(res => {
+        console.log("response received");
+        if(res.data.status === "success") {
+          window.alert("Payment succcessfull!")
+          handlePrint();
+        } else {
+          window.alert("Some error occured while stripe payment!")
+        }
+      })
+      .catch(error => {
+        console.log("error", error);
+        window.alert("Error in Payment!")
+      });
+  };
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    onAfterPrint: () => setPrintAvatarModal(false),
+  });
 
   const saveForm = () => {
     setShowModal(false);
@@ -482,7 +554,7 @@ const CreateAvatar = ({ location }) => {
             isOpen={printAvatarModal} toggle={() => setShowNameModal(!printAvatarModal)}>
             <ModalHeader toggle={() => setPrintAvatarModal(!printAvatarModal)}>Print Avatars</ModalHeader>
             <ModalBody>
-              <div className="container" ref={componentRef}>
+              <div className="container" id='printme' ref={componentRef}>
                 <div className="row justify-content-center">
                   {
                     avatarData.map((avatar, index) => {
@@ -510,10 +582,28 @@ const CreateAvatar = ({ location }) => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <ReactToPrint
+              {/* <ReactToPrint
                 trigger={() => <Button onClick={() => setPrintAvatarModal(false)} size="large" className="ui green color mt-3">Print</Button>}
                 content={() => componentRef.current}
-              />
+              /> */}
+              <StripeCheckout
+                name="Gatsby Store"
+                amount={1499}
+                currency={'USD'}
+                // stripeKey={process.env.STRIPE_PUBLISHABLE_KEY || ''}
+                stripeKey={'pk_test_Yz5uFg6TmXo8f8dDwp42z6X900dogfXANM'}
+                shippingAddress={false}
+                // billingAddress
+                // zipCode
+                token={handleCheckout}
+                reconfigureOnUpdate={false}
+                triggerEvent="onClick"
+              >
+                <Button size="large" className="ui green color mt-3">
+                  Pay $14.99
+                </Button>
+              </StripeCheckout>
+              {/* <Button onClick={() => handlePrint()} size="large" className="ui green color mt-3">Print</Button> */}
             </ModalFooter>
           </Modal>
         )
