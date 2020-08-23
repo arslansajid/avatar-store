@@ -95,3 +95,15 @@ export const fetchFramesByPrice = async (start, end) => {
       throw err.response;
     }
 };
+
+
+export const stripeCheckoutMethod = async userData => {
+  try {
+      const res = await axiosInstance.post(
+        `${Config.API_END_POINT}/checkout`, userData
+      );
+      return res;
+    } catch (err) {
+      throw err.response;
+    }
+};
